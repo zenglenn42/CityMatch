@@ -1,3 +1,7 @@
+html {
+  height: -webkit-fill-available
+}
+
 body {
   margin: 0;
 }
@@ -5,7 +9,9 @@ body {
 .body__div {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
 }
 
 .header {
