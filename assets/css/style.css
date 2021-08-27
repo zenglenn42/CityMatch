@@ -61,6 +61,7 @@
 .mdl-layout__drawer .mdl-menu {
   /* Make submenu container width same as menu drawer width. */
   min-width: 280px;
+  max-width: 280px;
 }
 
 .mdl-layout__drawer .mdl-menu__item > a,
