@@ -102,7 +102,7 @@ div.mdl-menu__container > ul > li
 }
 
 #landing-text {
-  overflow: scroll;
+  overflow-y: scroll;
   padding-bottom: 0px;
 }
 
@@ -111,6 +111,7 @@ div.mdl-menu__container > ul > li
 /* read before hitting the fab.                     */
 
 #landing-text::-webkit-scrollbar {
+  -webkit-overflow-scrolling: auto;
   -webkit-appearance: none;
   width: 7px;
 }
