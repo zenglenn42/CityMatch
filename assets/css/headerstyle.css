@@ -77,6 +77,7 @@ body {
 .header__title-button {
   color: inherit;
   text-transform: none;
+  padding: 0 4px; /* Otherwise >14 char title clips; Spanish */
 }
 
 .subheader__title {
