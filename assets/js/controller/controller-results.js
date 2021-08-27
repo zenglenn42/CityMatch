@@ -50,8 +50,8 @@ Controller.prototype.addScrollEventListener = function() {
     // Get nominal visibility of dropdown-selection nav items.
     let subheaderOverflow = (hasSubheader) ? subheaderStyle.getPropertyValue('overflow') : 'visible'
 
-    let transitionOut = "max-height 0.1s ease-out, overflow 0s ease-out"
-    let transitionIn = "max-height 0.1s ease-in, overflow 0s ease-in"
+    let transitionOut = "max-height 0.1s linear, overflow 0.1s linear"
+    let transitionIn = "max-height 0.1s linear, overflow 0.1s linear"
 
     function setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
                              subheaderEl, subheaderMaxHeight, subheaderOverflow, transition,
