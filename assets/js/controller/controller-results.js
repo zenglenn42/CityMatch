@@ -168,11 +168,6 @@ Controller.prototype.addScrollEventListener = function() {
                           menuEl, menuFloatingClass)
         } else if (e.target.scrollTop  - preventJitter > 0  && isVisible(headerEl)) {
           setInvisibleStyle(headerEl, subheaderEl, transitionOut, menuEl, menuFloatingClass)
-          e.target.scrollTop = 1; // Be kind to user; align scroll top so they can
-                                  // see the start of the main content window after
-                                  // header has scrolled-away.  Otherwise they always have to
-                                  // back-scroll by preventJitter's-worth of pixels to see
-                                  // the beginning of the content.
         }
       }, useCapture)
     }

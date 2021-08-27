@@ -328,6 +328,8 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   /* The mystical key to allowing priority cards
      to disappear before they hit the footer. */
   height: 73vh; /* Hmm ... may want to media query this. */
+  scroll-snap-type: y mandatory;
+  overflow: scroll;
 }
 
 @media screen and (max-width: 320px) {
@@ -343,6 +345,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   margin: 0 auto;
   margin-top: 1.667em;
   min-width: 20.83em;
+  scroll-snap-align: start;
 }
 
 .settings-grid {
