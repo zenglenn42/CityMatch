@@ -542,7 +542,7 @@ a .view-button {
 .main--scrollable {
   overflow: scroll;
   /* Makes scroll-away header more tolerable on table view. */
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
   height: 95%;
 }
 
