@@ -542,7 +542,8 @@ a .view-button {
 .main--scrollable {
   overflow: scroll;
   /* Makes scroll-away header more tolerable on table view. */
-  scroll-snap-type: both proximity;
+  scroll-snap-type: y proximity;
+  height: 95%;
 }
 
 .mdl-data-table tr {
