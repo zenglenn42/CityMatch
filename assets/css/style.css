@@ -544,8 +544,7 @@ a .view-button {
                   /* ballistic scroll (especially on table-view).      */
   overflow: scroll;
   scroll-snap-type: y proximity;
-  scroll-padding: 1em 0;
-  height: 95%;
+  height: 100%;
 }
 
 .mdl-data-table tr {

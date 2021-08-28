@@ -110,7 +110,7 @@ View.prototype.createResultsMain = function() {
         break
       case "table-view":
         let table = this.createTableView(userPriorities)
-        table.setAttribute("style", "margin: 0em auto; padding: 2em 0 0em 0;")
+        table.setAttribute("style", "margin: 1em auto; padding: 2em 0 0em 0;")
         child.appendChild(table)
         m.appendChild(child)
         m.setAttribute("data-view", "table")
