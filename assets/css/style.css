@@ -544,7 +544,7 @@ a .view-button {
                   /* ballistic scroll (especially on table-view).      */
   overflow: scroll;
   scroll-snap-type: y proximity;
-  scroll-padding: 2em 0 0em 0;
+  scroll-padding: 1em 0 0em 0;
   height: 100%;
 }
 
