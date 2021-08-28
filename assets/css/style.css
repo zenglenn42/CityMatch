@@ -1,3 +1,4 @@
+
 .mdl-layout__header,
 .mdl-layout__drawer-button,
 .mdl-layout__header-row .mdl-navigation__link {
@@ -334,6 +335,10 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   overflow: scroll;
 }
 
+.grid-content {
+  padding-top: 1em;
+}
+
 /*
 @media screen and (max-width: 320px) {
   .mdl-grid {
@@ -346,7 +351,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   padding: 0.5em;
   color: black;
   margin: 0 auto;
-  margin-top: 1.667em;
+  margin-top: 1em;
   min-width: 20.83em;
   scroll-snap-align: start;
 }
@@ -540,8 +545,6 @@ a .view-button {
 }
 
 .main--scrollable {
-  padding: 1em 0; /* Prevent scroll-away header from reappearing after */
-                  /* ballistic scroll (especially on table-view).      */
   overflow: scroll;
   scroll-snap-type: y proximity;
   height: 100%;

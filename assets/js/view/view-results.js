@@ -110,7 +110,14 @@ View.prototype.createResultsMain = function() {
         break
       case "table-view":
         let table = this.createTableView(userPriorities)
+
+        // Prevent scroll-away header from reappearing too easily
+        // at least on desktop (effected through use of top padding).
+        //
+        // TODO: Need better solution for mobile (Safari).
+        //
         table.setAttribute("style", "margin: 1em auto; padding: 2em 0 0em 0;")
+
         child.appendChild(table)
         m.appendChild(child)
         m.setAttribute("data-view", "table")
