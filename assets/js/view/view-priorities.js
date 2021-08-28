@@ -58,7 +58,6 @@ View.prototype.createPrioritiesMain = function() {
                                           // and results.
 
   let child = document.createElement("div")
-  child.classList.add("grid-content")
   m.appendChild(child)
   let g = document.createElement("div")
   g.classList.add("mdl-grid")

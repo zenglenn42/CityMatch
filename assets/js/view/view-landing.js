@@ -31,7 +31,7 @@ View.prototype.createLandingBody = function() {
 
 View.prototype.createLandingMain = function(slogan, blurbArray) {
   let m = document.createElement("main")
-  m.classList.add("content")
+  m.classList.add("landing-content")
   m.setAttribute("id", "main")
 
   // Present each blurb array text element as a separate html

@@ -158,14 +158,23 @@ Controller.prototype.addScrollEventListener = function() {
         }
 
 
-        let preventJitter = headerHeight + subheaderHeight  // Hysteresis threshold, otherwise scroll
-                                                            // bounces around for windows that only need a
-                                                            // smidge of vertical scrolling.
+        // Hysteresis threshold, otherwise scroll
+        // bounces around for windows that only need a
+        // smidge of vertical scrolling.
+
+        let preventJitter = headerHeight + subheaderHeight 
 
         if (e.target.scrollTop === 0 && isInvisible(headerEl)) {
-          setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
-                          subheaderEl, subheaderMaxHeight, subheaderOverflow, transitionIn,
-                          menuEl, menuFloatingClass)
+
+          return  // TODO: Implement more nuanced re-appearance algorithm
+                  //       As-is, this is really annoying on mobile because
+                  //       header reappears too easily, distracting user
+                  //       from focussing on content.
+
+          //setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
+          //                subheaderEl, subheaderMaxHeight, subheaderOverflow, transitionIn,
+          //                menuEl, menuFloatingClass)
+
         } else if (e.target.scrollTop  - preventJitter > 0  && isVisible(headerEl)) {
           setInvisibleStyle(headerEl, subheaderEl, transitionOut, menuEl, menuFloatingClass)
         }

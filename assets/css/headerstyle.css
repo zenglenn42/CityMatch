@@ -46,8 +46,8 @@ body {
   line-height: 2em;
   max-height: 2em;
   background-color: gray;
+  margin-bottom: 1em;
 }
-
 
 /* Allow header to collapse, especially when scrolling */
 /* down on landscape-oriented mobile devices.          */

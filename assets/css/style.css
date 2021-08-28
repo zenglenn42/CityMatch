@@ -1,9 +1,13 @@
+.mdl-layout {
+  overflow-y: hidden;
+}
 
 .mdl-layout__header,
 .mdl-layout__drawer-button,
 .mdl-layout__header-row .mdl-navigation__link {
   color: white;
 }
+
 
 /* Used programmatically in controller-results.js to give floating effect */
 /* when header/subheader have transitioned offscreen during scroll down.  */
@@ -102,6 +106,17 @@ div.mdl-menu__container > ul > li
   background-color: white;
 }
 
+.landing-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1em;
+  margin-bottom: 3em;
+  flex: 1;
+  overflow: hidden;
+}
+
 #landing-text {
   overflow-y: scroll;
   padding-bottom: 0px;
@@ -125,12 +140,33 @@ div.mdl-menu__container > ul > li
 #landing-text p {
   padding-bottom: 0px;
   line-height: 1.25em;
-  font-size: 145%;
+  font-size: 135%;
 }
 
 .landing-card-wide.mdl-card {
-  width: 75%;
-  max-width: 26em;
+  min-width: 55%;
+  max-width: 65%;
+}
+
+@media screen and (max-width: 1112px) {
+  .landing-card-wide.mdl-card {
+    min-width: 70%;
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .landing-card-wide.mdl-card {
+    min-width: 80%;
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .landing-card-wide.mdl-card {
+    min-width: 85%;
+    max-width: 90%;
+  }
 }
 
 .landing-card-wide > .mdl-card__title {
@@ -325,14 +361,8 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 }
 
 .mdl-grid {
-
-  /* Controls behavior and margins of:        */
-  /*    priority-card & results photo-card    */
-  /* scroll grids.                            */
-
-  height: 95%;
-  scroll-snap-type: y proximity;
-  overflow: scroll;
+  padding-top: 0;
+  padding-bottom: 1.5em;  /* Give priority card breathing room around FAB */
 }
 
 .grid-content {
@@ -348,10 +378,10 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .mdl-cell {
   box-sizing: border-box;
-  padding: 0.5em;
+  padding: 0 0.5em;
   color: black;
   margin: 0 auto;
-  margin-top: 1em;
+  margin-bottom: 1em;
   min-width: 20.83em;
   scroll-snap-align: start;
 }
@@ -451,16 +481,6 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   color: black;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 1em;
-  margin-bottom: 3em;
-  flex: 1;
-  overflow-y: scroll; /* Add scroll bar to landing page blurb. */
-}
 
 /* Encourage 'main' portion of layout to take up maximal vertial space, */
 /* pushing the footer to the bottom of the viewport.                    */
@@ -545,9 +565,14 @@ a .view-button {
 }
 
 .main--scrollable {
+  height: 100%;
   overflow: scroll;
   scroll-snap-type: y proximity;
+}
+
+.main--unscrollable {
   height: 100%;
+  overflow: hidden;
 }
 
 .mdl-data-table tr {

@@ -123,6 +123,8 @@ View.prototype.createResultsMain = function() {
         m.setAttribute("data-view", "table")
         break
       case "chart-view":
+        m.classList.remove("main--scrollable")
+        m.classList.add("main--unscrollable")
         let chartId = "myChart"
         child.innerHTML = `
           <canvas id="${chartId}" style="height: 73vh"></canvas>
@@ -131,19 +133,18 @@ View.prototype.createResultsMain = function() {
         m.setAttribute("data-view", "chart")
         break
       case "map-view":
-        {
-          let mapId = "mapid"
-          child.setAttribute("id", mapId)
-          child.setAttribute("style", "height: 80vh")
-          child.setAttribute("data-view", "map")  // needed for scroll handler
-          m.appendChild(child)
-          m.setAttribute("data-view", "map")  // need for view buttons
-        }
+        m.classList.remove("main--scrollable")
+        m.classList.add("main--unscrollable")
+        let mapId = "mapid"
+        child.setAttribute("id", mapId)
+        child.setAttribute("style", "height: 80vh")
+        child.setAttribute("data-view", "map")  // needed for scroll handler
+        m.appendChild(child)
+        m.setAttribute("data-view", "map")  // need for view buttons
         break
       case "photo-view":
       default:
         //console.log("photo-view")
-        child.classList.add("grid-content")
         m.appendChild(child)
         g.classList.add("mdl-grid")
         g.setAttribute("data-view", "photo")  // needed for scroll handler
