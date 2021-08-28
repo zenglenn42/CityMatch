@@ -127,7 +127,7 @@ View.prototype.createResultsMain = function() {
         m.classList.add("main--unscrollable")
         let chartId = "myChart"
         child.innerHTML = `
-          <canvas id="${chartId}" style="height: 73vh"></canvas>
+          <canvas id="${chartId}" style="height: 73vh;"></canvas>
         `
         m.appendChild(child)
         m.setAttribute("data-view", "chart")
@@ -137,7 +137,7 @@ View.prototype.createResultsMain = function() {
         m.classList.add("main--unscrollable")
         let mapId = "mapid"
         child.setAttribute("id", mapId)
-        child.setAttribute("style", "height: 80vh")
+        child.setAttribute("style", "height: 80vh;")
         child.setAttribute("data-view", "map")  // needed for scroll handler
         m.appendChild(child)
         m.setAttribute("data-view", "map")  // need for view buttons

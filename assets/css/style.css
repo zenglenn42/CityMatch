@@ -88,11 +88,14 @@
   top: -10%;
 }
 
+div.mdl-menu__container {
+  overflow-x: hidden
+}
+
 div.mdl-menu__container > ul > li
  {
   /* Indent submenu list items a tad. */
   margin-left: 1.5em;
-  margin-right: 1em;
 }
 
 .mdl-card__title-text {
@@ -417,6 +420,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .mdl-menu__container.is-visible .mdl-menu {
   background-color: rgba(123, 161, 261, 1); /* lighter shade of primary color */
+  overflow-x: hidden; /* Otherwise drop-down lang menu has horiz scrollbar. */
 }
 
 /* Some items in the submenu are just text, not selectable buttons. */

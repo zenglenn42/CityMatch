@@ -177,6 +177,11 @@ Controller.prototype.addScrollEventListener = function() {
 
         } else if (e.target.scrollTop  - preventJitter > 0  && isVisible(headerEl)) {
           setInvisibleStyle(headerEl, subheaderEl, transitionOut, menuEl, menuFloatingClass)
+        } else {
+          if (e.target.scrollTop > mainEl.scrollHeight - mainEl.clientHeight) {
+            // Clamp scrollTop to reasonable values.  Fighting scroll jank on Safari iOS.
+            e.target.scrollTop = mainEl.scrollHeight - mainEl.clientHeight
+          }
         }
       }, useCapture)
     }
