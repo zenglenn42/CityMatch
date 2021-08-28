@@ -75,6 +75,7 @@ Basic city ranking and multi-view results work:
   - [Unknown unknowns](#unknown-unknowns)
     - [Proliferating click handlers](#proliferating-click-handlers)
     - [Managed event handlers](#managed-event-handlers)
+  - [Harden App](#harden-app)
   - [Thanks for reading](#thanks-for-reading)
 
 -----
@@ -1297,6 +1298,32 @@ The other thing I learn is that Safari, as a dev environment, frequently needs t
 
 I'll find a more exemplary way to manage event handlers, but I'm out of the ditch for now.
 
+## [Harden App](#contents)
+
+### [Unwelcome Recursion](#contents)
+
+Modern browser debuggers are truly amazing.  I increasingly hang-out there to single-step through code or understand what CSS god I have displeased.  I love the z-indexed stacked ```Layers``` view and know how to breakpoint the event listeners that hang off a particular DOM node.  But sometimes you don't really need all that sophistication to recognize an obvious problem.  Case in point:
+
+![alt](docs/img/bad-recursion.png)
+
+All is not well in the state of Denmark.  As I click-through to various pages from the FAB, clearing nodes and recreating new DOM heirarchies off the top-most body ```<div>```, I see unexpected insertions of ```mdl-layout__container``` ```<div>```'s.  Clearly this is a bug.  This particular ```<div>``` is not something I explicity add, but rather something introduced by the MDL framework itself, probably in response to the plethora of calls to componentHandler.downgradeElements()/componentHandler.upgradeDom() that stackoverflow served up to resolve my unresponsive hamburger menu issue back in the day.  Frameworks give you the ability to add a class to an element and then magically generate the tedius DOM nodes to realize the promised abstraction.  But sometimes the abstraction breaks down.
+
+In all likelihood, I'm abusing MDL in some way.  But my motivation to understand an end-of-life framework is minimal.  I'm getting closer to a refactor that increases the lifetime of my page-DOM hierarchies so I don't wantonly recreate components from scratch with every click of the FAB.  But I'm not quite ready for the whole React/Material Components migration.  So I opt to get really OCD between page renders with the following code that strips the body component back to the studs before building up the next page:
+
+```
+View.prototype.resetBody = function() {
+  this.removeChildNodes(document.body)
+
+  let bodyDiv = document.createElement("div")
+  bodyDiv.setAttribute("id", `${this.bodyDivId}`)
+  bodyDiv.setAttribute("class", "body__div mdl-layout mdl-js-layout")
+
+  document.body.appendChild(bodyDiv)
+  bodyDiv.innerHTML = ""
+}
+```
+
+I sprinkle this around liberally and the parasitic recursion stops.
 
 ## [Thanks for reading](#contents)
 
