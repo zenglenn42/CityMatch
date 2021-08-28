@@ -540,10 +540,10 @@ a .view-button {
 }
 
 .main--scrollable {
-  padding: 2em 0; /* Prevent scroll-away header from reappearing after */
+  padding: 3em 0; /* Prevent scroll-away header from reappearing after */
                   /* ballistic scroll (especially on table-view).      */
   overflow: scroll;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-padding: 1em 0;
   height: 100%;
 }
