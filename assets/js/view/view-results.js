@@ -109,9 +109,8 @@ View.prototype.createResultsMain = function() {
         m.setAttribute("data-view", "list")
         break
       case "table-view":
-        //child.setAttribute("style", "overflow: scroll")
         let table = this.createTableView(userPriorities)
-        table.setAttribute("style", "margin: 2em auto 1em auto;")
+        table.setAttribute("style", "margin: 0em auto;")
         child.appendChild(table)
         m.appendChild(child)
         m.setAttribute("data-view", "table")
