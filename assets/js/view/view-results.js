@@ -111,7 +111,7 @@ View.prototype.createResultsMain = function() {
       case "table-view":
         //child.setAttribute("style", "overflow: scroll")
         let table = this.createTableView(userPriorities)
-        table.setAttribute("style", "margin: 3em auto;")
+        table.setAttribute("style", "margin: 2em auto;")
         child.appendChild(table)
         m.appendChild(child)
         m.setAttribute("data-view", "table")
@@ -198,10 +198,10 @@ View.prototype.createTableView = function(userPriorities, rank = 1) {
   thead.innerHTML = `
     <tr>
       <th class="mdl-data-table__cell--non-numeric">${this.getTableLabelRank()}</th>
-      <th class="" style="text-align: left;">${this.getTableLabelCity()}</th>
-      <th class="" style="text-align: center;">${this.getTableLabelHappiness()}</th>
-      <th class="" style="text-align: center;">${this.getTableLabelPolitics()}</th>
-      <th class="" style="text-align: center;">${house} ${this.getTableLabelAffordability()}</th>
+      <th style="text-align: left;">${this.getTableLabelCity()}</th>
+      <th style="text-align: center;">${this.getTableLabelHappiness()}</th>
+      <th style="text-align: center;">${this.getTableLabelPolitics()}</th>
+      <th style="text-align: center;">${house} ${this.getTableLabelAffordability()}</th>
     </tr>
   `
 

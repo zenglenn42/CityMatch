@@ -550,3 +550,7 @@ a .view-button {
   /* Makes scroll-away header more tolerable on table view. */
   scroll-snap-align: start;
 }
+
+.mdl-data-table th {
+  color: black;
+}
