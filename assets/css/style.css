@@ -8,9 +8,8 @@
 /* when header/subheader have transitioned offscreen during scroll down.  */
 
 .mdl-layout__drawer-button--floating {
-  color: black;
   color: rgba(63, 81, 181, 1.0); /* indigo */
-  background-color: rgba(200, 200, 200, 0.50);  /* Transparent gray */
+  background-color: rgba(200, 200, 200, 0.60);  /* Transparent gray */
   border-radius: 1em;
   box-shadow: 0 0.150em 0.312em rgba(0, 0, 0, 0.10), 0 0.093em 0.375em rgba(0, 0, 0, 0.14);
   border: solid 1px lightgray;
@@ -112,7 +111,7 @@ div.mdl-menu__container > ul > li
 /* read before hitting the fab.                     */
 
 #landing-text::-webkit-scrollbar {
-  -webkit-overflow-scrolling: auto;
+  -webkit-overflow-scrolling: touch;
   -webkit-appearance: none;
   width: 7px;
 }
@@ -325,18 +324,22 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 }
 
 .mdl-grid {
-  /* The mystical key to allowing priority cards
-     to disappear before they hit the footer. */
-  height: 73vh; /* Hmm ... may want to media query this. */
-  scroll-snap-type: y mandatory;
+
+  /* Controls behavior and margins of:        */
+  /*    priority-card & results photo-card    */
+  /* scroll grids.                            */
+
+  height: 95%;
+  scroll-snap-type: y proximity;
   overflow: scroll;
 }
 
+/*
 @media screen and (max-width: 320px) {
   .mdl-grid {
-    height: 70vh;
   }
 }
+*/
 
 .mdl-cell {
   box-sizing: border-box;
@@ -373,7 +376,6 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 .mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__outline {
   z-index: -1;
   background-color: rgba(123, 161, 261, 1); /* lighter shade of primary color */
-  //background-color: rgba(63, 81, 181, .97); /* indigo */
 }
 
 /* Give submenus their own distinctive color in the menu drawer. */
@@ -539,4 +541,11 @@ a .view-button {
 
 .main--scrollable {
   overflow: scroll;
+  /* Makes scroll-away header more tolerable on table view. */
+  scroll-snap-type: both proximity;
+}
+
+.mdl-data-table tr {
+  /* Makes scroll-away header more tolerable on table view. */
+  scroll-snap-align: start;
 }

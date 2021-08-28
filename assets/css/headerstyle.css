@@ -1,14 +1,25 @@
 html {
+  /* DON'T TOUCH THIS (see notes for .body__div below) */
   height: -webkit-fill-available
 }
 
 body {
   margin: 0;
+  overflow: hidden; /* Prevent unwanted scroll bars. */
 }
 
 .body__div {
   display: flex;
   flex-direction: column;
+
+  /* DON'T TOUCH THIS (if you want to avoid pulling out your hair :-)               */
+
+  /* This is the key to keeping our bottom appbar unoccluded on mobile platforms,   */
+  /* especially by iOS-Safari's bottom toolbar. We intentionally trade some         */
+  /* viewport space for the sanity of a bottom appbar that is always visible.       */
+
+  /* See: https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit */
+
   min-height: 100vh;
   min-height: -webkit-fill-available;
   min-height: fill-available;
