@@ -421,6 +421,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .mdl-menu__container.is-visible .mdl-menu {
   background-color: rgba(123, 161, 261, 1); /* lighter shade of primary color */
+  overflow-x: hidden; /* Otherwise drop-down lang menu has horiz scrollbar. */
 }
 
 /* Some items in the submenu are just text, not selectable buttons. */
