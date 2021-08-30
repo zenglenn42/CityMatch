@@ -27,6 +27,11 @@
   display: none
 }
 
+#dropdown-nav-language .mdl-menu__container {
+  width: unset;
+  min-width: 4em; /* Otherwise lang dropdown clips on desktop. */
+}
+
 .mdl-layout-title-nudged {
   /* 
      Nudge header title text down a tad 
