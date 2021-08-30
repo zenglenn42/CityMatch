@@ -93,10 +93,6 @@
   top: -10%;
 }
 
-div.mdl-menu__container {
-  overflow-x: hidden
-}
-
 div.mdl-menu__container > ul > li
  {
   /* Indent submenu list items a tad. */
