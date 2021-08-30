@@ -125,7 +125,7 @@ View.prototype.createResultsMain = function() {
       case "chart-view":
         let chartId = "myChart"
         child.innerHTML = `
-          <canvas id="${chartId}" style="height: 73vh;"></canvas>
+          <canvas id="${chartId}" style="height: 73vmax;"></canvas>
         `
         m.appendChild(child)
         m.setAttribute("data-view", "chart")
