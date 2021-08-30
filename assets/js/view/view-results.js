@@ -123,8 +123,6 @@ View.prototype.createResultsMain = function() {
         m.setAttribute("data-view", "table")
         break
       case "chart-view":
-        m.classList.remove("main--scrollable")
-        m.classList.add("main--unscrollable")
         let chartId = "myChart"
         child.innerHTML = `
           <canvas id="${chartId}" style="height: 73vh;"></canvas>
@@ -275,6 +273,9 @@ View.prototype.createChartView = function(chartId = "myChart") {
     type: "bar",
     data: barChartData,
     options: {
+      legend: {
+        position: 'bottom'
+      },
       title: {
         display: true,
         text: this.getChartTitle()
