@@ -148,12 +148,12 @@ Controller.prototype.addScrollEventListener = function() {
         switch (targetView) {
           case "photo": // Whitelist these views to use our custom scroll handler.
           case "table": //
+          case "chart": //
               break     // Proceed to custom scroll handling
 
-          case "chart": // Blacklist these views from using our custom scroll handler.
-          case "map":   // These views are not playing nicely on mobile, especially map-view
+          case "map":   // Blacklist these views from using our custom scroll handler.
+          default:      // These views are not playing nicely on mobile, especially map-view
                         // on Android.  Need better device emulation in dev env. :-)
-          default:
               return    // Bail out, no custom scroll handling.
         }
 
