@@ -1369,6 +1369,8 @@ I realize I've created something ungood. :-/
 
 Sure, I can see all the column headers now, but there's room for just _one_ row of city data, frustrating one's ability to make proximate comparisons to other cities.  Plus the scroll region is so small, it's almost too annoying to use.
 
+Basically, my phone's browser is consuming some of those ```100vw x 100vh``` viewport units with screen elements such as smart-search windows and bottom toolbars, exacerbating some tone-deaf design choices I'm defaulting to on mobile.
+
 The victory lap becomes an unexpected mini-descent into the [Kübler-Ross model of grief](https://www.mcgill.ca/oss/article/health-history/its-time-let-five-stages-grief-die):
 
 * ```denial```
@@ -1397,7 +1399,7 @@ Three weeks later, I have a better, mobile-friendly, table-view that works on iO
 
 ![alt](docs/img/mobile-friendly-table.png)
 
-in my case, it triples the number of rows visible in landscape mode, features scroll-away headers and a floating hamburger menu.  ***And*** and my bottom appbar no longer gets occluded by the mobile browser's dynamic toolbars.  It's not perfect but it's much better.
+in my case, it triples the number of rows visible in landscape mode, features scroll-away headers and a floating hamburger menu.  ***And*** my bottom appbar no longer gets occluded by the mobile browser's dynamic toolbars.  It's not perfect but it's much better.
 
 ### [Lessons learned](#contents)
 
@@ -1405,15 +1407,23 @@ in my case, it triples the number of rows visible in landscape mode, features sc
 
 I feel like I've been through a rite of passage that ultimately strengthens my ability to appraise and assess ... and knock down some of those unknown unknowns.
 
-* Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/).
+* Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  
+
+But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/).
 
 Btw, ```width: 100%``` factors in the dimensions of scrollbars, ```width: 100vw``` does _not_.
 
-* I need better feature detection and should probably leverage [Modernizr](https://modernizr.com/) so I can code to a more robust and resilient browser model.  Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  There is often a fine line between enabling usability and good intentions that ultimately annoy.
+* I need better feature detection and should probably leverage [Modernizr](https://modernizr.com/) so I can code to a more robust and resilient browser model.  
 
-* ***Always*** turn on scrollbars when developing from macOS so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  I discovered my landing page actually had _three_ sets of scrollbars lurking there.
+Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  There is often a fine line between enabling usability and good intentions that ultimately annoy.
 
-* I'm getting closer to React Native since some UI/UX patterns just don't seem available to web developers in a low-impedance, no-compromise way.  The bottom appbar is a case in point.
+* ***Always*** turn on scrollbars when developing from macOS so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  
+
+I discover my landing page actually had _three_ sets of scrollbars lurking there.
+
+* I'm getting closer to React Native
+
+Some UI/UX patterns just don't seem available to web developers in a low-impedance, no-compromise way.  The bottom appbar is a case in point.
 
 ## [Thanks for reading](#contents)
 
