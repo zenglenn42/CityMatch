@@ -1412,7 +1412,11 @@ Btw, ```width: 100%``` factors in the dimensions of scrollbars, ```width: 100vw`
 
 * I need better feature detection and should probably leverage [Modernizr](https://modernizr.com/) so I can code to a more robust and resilient browser model.  
 
-Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  There is often a fine line between enabling usability and good intentions that ultimately annoy.
+Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  
+
+In mobile portrait mode, where we've got enough space to view an entire city photo-card, ```scroll-snap-type: mandatory``` makes sense and feels nice and thumb-flickable.  However, in landscape mode, ```mandatory``` is overkill and actually detracts from the UX since cards may span the viewport, leaving users to curse you when the bottom content of a card snaps out of view, with slavish top-alignment.  Clearly, ```proximity``` snapping is the better choice.
+
+There's a fine line between enabling usability and good intentions that ultimately annoy.  
 
 * ***Always*** [turn on scrollbars when developing from macOS](https://css-tricks.com/scrollbar-reflowing/) so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  
 
