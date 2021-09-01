@@ -1332,9 +1332,9 @@ I sprinkle this around liberally and the parasitic recursion stops.
 ![alt](docs/img/sonja-guina-ryO9maYr4rY-unsplash.jpg)
 Photo by Sonja Guina
 
-It started out as a modest request from a friend: ```Could you implement a table view?```
+It starts out as a modest request from a friend: ```Could you implement a table view?```
 
-He didn't want to see a lot of photos or fluffy chart animations, just the underlying data in a simple format.
+He doesn't want to see a lot of photos or fluffy chart animations, just the underlying data in a simple format.
 
 I let the idea percolate for about a week with the following realizations:
 
