@@ -60,7 +60,7 @@ Basic city ranking and multi-view results work:
   - [Usability](#usability)
   - [Harden](#harden)
   - [Tasty Features](#tasty-features)
-- [Declaring Victory](#declaring-victory)
+- [Begin, again](#begin-again)
   - [Menu refactor](#menu-refactor)
   - [A better dropdown-select component](#a-better-dropdown-select-component)
   - [Granular MVC-ification](#granular-mvc-ification)
@@ -81,6 +81,7 @@ Basic city ranking and multi-view results work:
     - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
     - [I prefer a larger table near a window](#i-prefer-a-larger-table-near-a-window)
     - [Lessons learned](#lessons-learned)
+- [Declaring Victory](#declaring-victory)
   - [Thanks for reading](#thanks-for-reading)
 
 -----
@@ -905,14 +906,10 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
   - I'd like to upgrade from Material Design Lite, which has reached end-of-life, to something more vital like Material Components.
 
-# [Declaring Victory](#contents)
+# [Begin, again](#begin-again)
 
-For all the cool potential this little app has, I think it's time to move on to other projects.  
-
-![alt](docs/img/priscilla-du-preez-tQagUWpAx5k-unsplash.jpg)
-Photo by Priscilla Du Preez
-
-As a parting farewell, I give some love to several areas highlighted by the UI/UX review along with a few features.
+![alt](docs/img/danielle-macinnes-IuLgi9PWETU-unsplash.jpg)
+Photo by Danielle MacInnes
 
 ## [Menu refactor](#contents)
 
@@ -1345,7 +1342,7 @@ I let the idea percolate for about a week with the following realizations:
 
 * Integration with the current UI is conceptually simple, just trade an ```<ol>``` for a ```<table>``` and map across the array of ranked city data to produce ```<tr>```'s instead of ```<li>```'s.  Maybe swap out the list icon for a table icon and hunt down references to ```list-view``` in my code and change it to ```table-view```.
 
-* The underlying framework I'm using, [Material Design Lite](https://getmdl.io/components/index.html#tables-section) _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love spreadsheets vibe.  Heck, there's probably 3rd party code for exporting HTML tables to Excel import-friendly CSVs.  For now, I'd just need to decorate my ```<table>``` with appropriate MDL classes to transform the markup into a spiffy matrix.
+* The underlying framework I'm using, [Material Design Lite](https://getmdl.io/components/index.html#tables-section) _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love that spreadsheet vibe.  Heck, there's probably third party code for exporting HTML tables to Excel import-friendly CSVs.  For now, I'd just need to decorate my ```<table>``` with appropriate MDL classes to transform the markup into a spiffy matrix.
 
 Easy-peasy ... so you know this isn't gonna end well, right? :D
 
@@ -1391,7 +1388,7 @@ Ug, this is cr@p and it a'int gonna be easy to fix.  When will this stop sucking
 
 * ```acceptance```
 
-Dang, my design _is_ kinda lame.  Why am I expending _1/3rd_ of the usable landscape viewport on a _dumb_ static header?  I really should track down better device emulation for my dev environment and maybe do the Browser Stack thing.  How are other's solving this issue?  I've been on auto-pilot and not really noticing how well-designed sites adapt to the form-factor constraints of mobile.
+Dang, my design _is_ kinda lame.  Why am I expending _1/3rd_ of the usable landscape viewport on a _dumb_ static header?  I really should track down better device emulation for my dev environment and maybe do the [BrowserStack thing](https://www.browserstack.com).  How are other's solving this issue?  I've been on auto-pilot and not really noticing how well-designed sites adapt to the form-factor constraints of mobile.
 
 ### [I prefer a larger table near a window](#contents)
 
@@ -1399,7 +1396,7 @@ Three weeks later, I have a better, mobile-friendly, table-view that works on iO
 
 ![alt](docs/img/mobile-friendly-table.png)
 
-in my case, it triples the number of rows visible in landscape mode, features scroll-away headers and a floating hamburger menu.  ***And*** my bottom appbar no longer gets occluded by the mobile browser's dynamic toolbars.  It's not perfect but it's much better.
+in my case, it triples the number of rows visible in landscape mode, features scroll-away headers and a floating hamburger menu, ***and*** my bottom appbar no longer gets occluded by the mobile browser's dynamic toolbars.  It's not perfect but it's much better.
 
 ### [Lessons learned](#contents)
 
@@ -1417,7 +1414,7 @@ Btw, ```width: 100%``` factors in the dimensions of scrollbars, ```width: 100vw`
 
 Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  There is often a fine line between enabling usability and good intentions that ultimately annoy.
 
-* ***Always*** turn on scrollbars when developing from macOS so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  
+* ***Always*** [turn on scrollbars when developing from macOS](https://css-tricks.com/scrollbar-reflowing/) so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  
 
 I discover my landing page actually had _three_ sets of scrollbars lurking there.
 
@@ -1425,9 +1422,15 @@ I discover my landing page actually had _three_ sets of scrollbars lurking there
 
 Some UI/UX patterns just don't seem available to web developers in a low-impedance, no-compromise way.  The bottom appbar is a case in point.
 
-## [Thanks for reading](#contents)
+# [Declaring Victory](#contents)
+
+For all the cool potential this little app has, I think it's time to move on to other projects.  
+![alt](docs/img/priscilla-du-preez-tQagUWpAx5k-unsplash.jpg)
+Photo by Priscilla Du Preez
 
 I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make responsive desktop easier to implement. For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries using flow-synchronization as beautifully [elaborated](https://martinfowler.com/eaaDev/uiArchs.html#ModelViewController) by Martin Fowler.
+
+## [Thanks for reading](#contents)
 
 I may noodle around with this app at the margins, but the next big lift would probably be a full-stack rollout with React front-end.  Stay tuned and thanks for reading. (-;
 
