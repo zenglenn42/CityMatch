@@ -76,7 +76,7 @@ Basic city ranking and multi-view results work:
     - [Proliferating click handlers](#proliferating-click-handlers)
     - [Managed event handlers](#managed-event-handlers)
   - [Harden App](#harden-app)
-  - [Table View Feature](#table-view-feature)
+  - [Table View](#table-view)
     - [Your table is ready](#your-table-is-ready)
     - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
     - [I prefer a larger table near a window](#i-prefer-a-larger-table-near-a-window)
@@ -1330,7 +1330,10 @@ View.prototype.resetBody = function() {
 
 I sprinkle this around liberally and the parasitic recursion stops.
 
-## [Table View Feature](#contents)
+## [Table View](#contents)
+
+![alt](docs/img/sonja-guina-ryO9maYr4rY-unsplash.jpg)
+Photo by Sonja Guina
 
 It started out as a modest request from a friend: ```Could you implement a table view?```
 
