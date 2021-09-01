@@ -906,7 +906,7 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
   - I'd like to upgrade from Material Design Lite, which has reached end-of-life, to something more vital like Material Components.
 
-# [Begin, again](#begin-again)
+# [Begin, again](#contents)
 
 ![alt](docs/img/danielle-macinnes-IuLgi9PWETU-unsplash.jpg)
 Photo by Danielle MacInnes
