@@ -1388,7 +1388,7 @@ Ug, this is cr@p and it a'int gonna be easy to fix.  When will this stop sucking
 
 * ```acceptance```
 
-Dang, my design _is_ kinda lame.  Why am I expending _1/3rd_ of the usable landscape viewport on a _dumb_ static header?  I really should track down better device emulation for my dev environment and maybe do the [BrowserStack thing](https://www.browserstack.com).  How are other's solving this issue?  I've been on auto-pilot and not really noticing how well-designed sites adapt to the form-factor constraints of mobile.
+Dang, my design _is_ kinda lame.  Why am I expending _1/3rd_ of the usable landscape viewport on a _dumb_ static header?  I really should track down better device emulation for my dev environment and maybe do the [BrowserStack thing](https://www.browserstack.com).  How are others solving this issue?  I've been on auto-pilot and not really noticing how well-designed sites adapt to the form-factor constraints of mobile.
 
 ### [I prefer a larger table near a window](#contents)
 
