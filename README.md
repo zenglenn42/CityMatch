@@ -76,6 +76,11 @@ Basic city ranking and multi-view results work:
     - [Proliferating click handlers](#proliferating-click-handlers)
     - [Managed event handlers](#managed-event-handlers)
   - [Harden App](#harden-app)
+  - [Table View Feature](#table-view-feature)
+    - [Your table is ready](#your-table-is-ready)
+    - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
+    - [I prefer a larger table near a window](#i-prefer-a-larger-table-near-a-window)
+    - [Lessons learned](#lessons-learned)
   - [Thanks for reading](#thanks-for-reading)
 
 -----
@@ -1324,6 +1329,88 @@ View.prototype.resetBody = function() {
 ```
 
 I sprinkle this around liberally and the parasitic recursion stops.
+
+## [Table View Feature](#contents)
+
+It started out as a modest request from a friend: ```Could you implement a table view?```
+
+He didn't want to see a lot of photos or fluffy chart animations, just the underlying data in a simple format.
+
+I let the idea percolate for about a week with the following realizations:
+
+* I'm not a huge fan of the current list view.  It has presentation issues with wrapping and clipping, making comparisons with other cities a bit muddled and tedious.  Maybe table view could be a more quant-friendly realization of list view?
+
+* Integration with the current UI is conceptually simple, just trade an ```<ol>``` for a ```<table>``` and map across the array of ranked city data to produce ```<tr>```'s instead of ```<li>```'s.  Maybe swap out the list icon for a table icon and maybe hunt down references to ```list-view``` in my code and change it to ```table-view```.
+
+* The underlying framework I'm using (Material Design Lite) _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love spreadsheets.  Heck, there probably is 3rd party code for exporting a HTML table to an Excel-friendly, CSV format.  For now, I'd just need to decorate my table HTML with the appropriate MDL classes to transform the markup into a spiffy matrix.
+
+Easy-peasy ... so you know this isn't gonna end well. :D
+
+### [Your table is ready](#contents)
+
+I code up the feature in about an hour, test things in my dev environment, and play with my browser's responsive mode for emulating mobile devices in both portrait and landscape modes.  I feel sassy, like I just harvested some nutrient-dense, digital kale from my little software garden:
+
+![alt](docs/img/list-to-table.png)
+
+I publish to github and deploy to the world.
+
+For good measure, I pull up the live site on my mobile to bask in the glory and take a victory lap.  Portrait orientation looks okay, but I can only see one column of data for a given city since the rest is clipped.  Sure, I can scroll-touch to the right, but then I can't compare cities against _all_ their attributes at once.  (Say what you will about list-view, the ugly wrapping allowed you to see all the data.)
+
+So I do the sane thing, the human thing, and rotate the phone to landscape mode so I can see all the columns and ...
+
+I realize I've created something ungood. :-/
+
+### [But the table is small and by the kitchen](#contents)
+
+![alt](docs/img/harm-to-table.png)
+
+Sure, I can see all the column headers now, but there's room for just _one_ rown of city data, frustrating one's ability to make proximate comparisons to other cities.  Plus the scroll region is so small, it's almost too annoying to use.
+
+The victory lap becomes an unexpected mini-descent into the Kübler-Ross model of grief:
+
+* ```denial```
+
+Wait, this looked fine in the my dev environment!
+
+* ```anger```
+
+Why is the phone vendor eating into all _my_ web app's precious screen real estate with their silly (ok, essential) toolbars and URL search elements?  Why can't my dev browser have better phone emulation?!
+
+* ```bargaining```
+
+Is there a way to programmatically strip all that vendor shizzle off so my app can have the _full_ screen?  Wait, what?  Progressive web app, you say?  Save my app to the home screen?  Will my Auntie even _know_ to do that on her own?!  What about some random stranger who doesn't know me from Adam?
+
+* ```depression```
+
+Ug, this is cr@p and it a'int gonna be easy to fix.  When will this stop sucking?  Why is it so hard to make something beautiful?
+
+* ```acceptance```
+
+```Dang, my design _is_ kinda lame.  Why am I expending _1/3rd_ of the usable landscape viewport on a _dumb_ static header?  I really should track down better device emulation for my dev environment and maybe do the Browser Stack thing.  How are other's solving this issue?  I've been on auto-pilot and not really noticing how well-designed sites adapt to the form-factor constraints of mobile.```
+
+### [I prefer a larger table near a window](#contents)
+
+Three weeks later, I have a better, mobile-friendly, table-view that works on iOS and Android:
+
+![alt](docs/img/mobile-friendly-table.png)
+
+in my case, it triples the number of rows visible in landscape mode, features scroll-away headers and a floating hamburger menu.  ***And*** and my bottom appbar no longer gets occluded by the mobile browser's dynamic toolbars.  It's not perfect but it's much better.
+
+### [Lessons learned](#contents)
+
+* Mobile is definitely it's own little universe.
+
+I feel like I've been through a rite of passage that ultimately strengthens my ability to appraise and assess ... and knock down some of those unknown unknowns.
+
+* Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/).
+
+Btw, ```width: 100%``` factors in the dimensions of scrollbars, ```width: 100vw``` does _not_.
+
+* I need better feature detection and should probably leverage [Modernizr](https://modernizr.com/) so I can code to a more robust and resilient browser model.  Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  There is often a fine line between enabling usability and good intentions that ultimately annoy.
+
+* ***Always*** turn on scrollbars when developing from macOS so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  I discovered my landing page actually had _three_ sets of scrollbars lurking there.
+
+* I'm getting closer to React Native since some UI/UX patterns just don't seem available to web developers in a low-impedance, no-compromise way.  The bottom appbar is a case in point.
 
 ## [Thanks for reading](#contents)
 
