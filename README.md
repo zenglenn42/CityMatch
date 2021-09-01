@@ -1342,9 +1342,9 @@ I let the idea percolate for about a week with the following realizations:
 
 * Integration with the current UI is conceptually simple, just trade an ```<ol>``` for a ```<table>``` and map across the array of ranked city data to produce ```<tr>```'s instead of ```<li>```'s.  Maybe swap out the list icon for a table icon and hunt down references to ```list-view``` in my code and change it to ```table-view```.
 
-* The underlying framework I'm using (Material Design Lite) _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love spreadsheets.  Heck, there probably is 3rd party code for exporting a HTML table to an Excel-friendly, CSV format.  For now, I'd just need to decorate my table HTML with the appropriate MDL classes to transform the markup into a spiffy matrix.
+* The underlying framework I'm using, [Material Design Lite](https://getmdl.io/components/index.html#tables-section) _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love spreadsheets vibe.  Heck, there's probably 3rd party code for exporting HTML tables to Excel import-friendly CSVs.  For now, I'd just need to decorate my ```<table>``` with appropriate MDL classes to transform the markup into a spiffy matrix.
 
-Easy-peasy ... so you know this isn't gonna end well. :D
+Easy-peasy ... so you know this isn't gonna end well, right? :D
 
 ### [Your table is ready](#contents)
 
@@ -1364,9 +1364,9 @@ I realize I've created something ungood. :-/
 
 ![alt](docs/img/harm-to-table.png)
 
-Sure, I can see all the column headers now, but there's room for just _one_ rown of city data, frustrating one's ability to make proximate comparisons to other cities.  Plus the scroll region is so small, it's almost too annoying to use.
+Sure, I can see all the column headers now, but there's room for just _one_ row of city data, frustrating one's ability to make proximate comparisons to other cities.  Plus the scroll region is so small, it's almost too annoying to use.
 
-The victory lap becomes an unexpected mini-descent into the Kübler-Ross model of grief:
+The victory lap becomes an unexpected mini-descent into the [Kübler-Ross model of grief](https://www.mcgill.ca/oss/article/health-history/its-time-let-five-stages-grief-die):
 
 * ```denial```
 
