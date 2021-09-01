@@ -1340,7 +1340,7 @@ I let the idea percolate for about a week with the following realizations:
 
 * I'm not a huge fan of the current list view.  It has presentation issues with wrapping and clipping, making comparisons with other cities a bit muddled and tedious.  Maybe table view could be a more quant-friendly realization of list view?
 
-* Integration with the current UI is conceptually simple, just trade an ```<ol>``` for a ```<table>``` and map across the array of ranked city data to produce ```<tr>```'s instead of ```<li>```'s.  Maybe swap out the list icon for a table icon and maybe hunt down references to ```list-view``` in my code and change it to ```table-view```.
+* Integration with the current UI is conceptually simple, just trade an ```<ol>``` for a ```<table>``` and map across the array of ranked city data to produce ```<tr>```'s instead of ```<li>```'s.  Maybe swap out the list icon for a table icon and hunt down references to ```list-view``` in my code and change it to ```table-view```.
 
 * The underlying framework I'm using (Material Design Lite) _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love spreadsheets.  Heck, there probably is 3rd party code for exporting a HTML table to an Excel-friendly, CSV format.  For now, I'd just need to decorate my table HTML with the appropriate MDL classes to transform the markup into a spiffy matrix.
 
