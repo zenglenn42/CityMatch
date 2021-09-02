@@ -1404,6 +1404,12 @@ in my case, it triples the number of rows visible in landscape mode, features sc
 
 I feel like I've been through a rite of passage that ultimately strengthens my ability to appraise and assess ... and knock down some of those unknown unknowns.
 
+For example, coding for orientation change is really important on mobile.  Currently, I reload the app on orientation change to fix a ```dead-space``` layout issue, but that has the secondary effect of resetting the scrollTop back to the top of ```<main>```.  
+
+Which means I risk losing the user's cognitive context when rotating between orientations especially if they were really scrolled down deeply into the results.  
+
+I really should _minimize_ avoidable dissonance like that.  Maybe I need a more finessed idiom (```onresize?```) that doesn't clobber ```scrollTop``` while addressing the dead-space thing __or__ possibly capture scrollTop in my view-model and persist that in some efficient way so the user's scroll context is preserved across orientation changes and even sessions.
+
 * Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  
 
 But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/).

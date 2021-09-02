@@ -170,6 +170,7 @@ div.mdl-menu__container > ul > li
   .landing-card-wide.mdl-card {
     min-width: 85%;
     max-width: 90%;
+    line-height: 10em;
   }
 }
 
