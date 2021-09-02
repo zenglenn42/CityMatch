@@ -1404,11 +1404,11 @@ in my case, it triples the number of rows visible in landscape mode, features sc
 
 I feel like I've been through a rite of passage that ultimately strengthens my ability to appraise and assess ... and knock down some of those unknown unknowns.
 
-For example, coding for orientation change is really important on mobile.  Currently, I reload the app on orientation change to fix a ```dead-space``` layout issue, but that has the secondary effect of resetting the scrollTop back to the top of ```<main>```.  
+For example, coding for orientation change is important on mobile.  Currently, I reload the app on orientation change to fix a ```dead-space``` layout issue, but that has the secondary effect of resetting the scrollTop back to the top of ```<main>```.  
 
-Which means I risk losing the user's cognitive context when rotating between orientations especially if they were really scrolled down deeply into the results.  
+So I risk disrupting the user's cognitive context after a device rotation ... especially if they're scrolled down deeply into the results.
 
-I really should _minimize_ avoidable dissonance like that.  Maybe I need a more finessed idiom (```onresize?```) that doesn't clobber ```scrollTop``` while addressing the dead-space thing __or__ possibly capture scrollTop in my view-model and persist that in some efficient way so the user's scroll context is preserved across orientation changes and even sessions.
+I should _minimize_ avoidable dissonance like that.  Maybe I need a more finessed idiom (```onresize?```) that doesn't clobber ```scrollTop``` while addressing the dead-space thing __or__ possibly capture scrollTop in my view-model and persist that in some efficient way so the user's scroll context is preserved across orientation changes and even sessions.
 
 * Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  
 
@@ -1430,9 +1430,9 @@ I discover my landing page actually had _three_ sets of scrollbars lurking there
 
 * I'm getting closer to React Native
 
-Some UI/UX patterns just don't seem available to web developers in a low-impedance, no-compromise way.  The bottom appbar is a case in point.  Sure I got my appbar fixed, but it's at the expense of a now normally-visible, 44px tall (on iOS Safari), vendor toolbar that can really compromise the UX for certain devices and orientations.
+Some UI/UX patterns just don't seem available to web developers in a low-impedance, no-compromise way.  The bottom appbar is a case in point.  Sure I got my appbar fixed, but it's at the expense of a now normally-visible, 44px tall (on iOS Safari), vendor toolbar that can compromise the UX for certain devices and orientations.
 
-Presumably [React Native](https://reactnative.dev) would give me the portability benefits of a webdev ecosystem with the virtues of full native-app form-factor and usage patterns.  No doubt, that promise entails it's own set of [tradeoffs](https://www.youtube.com/watch?v=E5xThvyaGbE) I have yet to fully appreciate. (-;
+Presumably [React Native](https://reactnative.dev) would give me the portability benefits of a webdev ecosystem with more of the virtues of native-app form-factor and usage patterns.  No doubt, that conjecture entails it's own set of [tradeoffs](https://www.youtube.com/watch?v=E5xThvyaGbE) I have yet to fully appreciate. (-;
 
 # [Declaring Victory](#contents)
 
