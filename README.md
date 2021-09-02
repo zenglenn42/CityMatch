@@ -1434,7 +1434,7 @@ I discover my landing page actually had _three_ sets of scrollbars lurking there
 
 Some UI/UX patterns just don't seem available to web developers in a low-impedance, no-compromise way.  The bottom appbar is a case in point.  Sure I got my appbar fixed, but it's at the expense of a now normally-visible, 44px tall (on iOS Safari), vendor toolbar that can compromise the UX for certain devices and orientations.
 
-Presumably [React Native](https://reactnative.dev) would give me the portability benefits of a webdev ecosystem with more of the virtues of native-app form-factor and usage patterns.  No doubt, that conjecture entails it's own set of [tradeoffs](https://www.youtube.com/watch?v=E5xThvyaGbE) I have yet to fully appreciate. (-;
+Presumably [React Native](https://reactnative.dev) would give me the portability benefits of a webdev ecosystem with more of the virtues of native-app form-factor and usage patterns.  No doubt, that conjecture entails its own set of [tradeoffs](https://www.youtube.com/watch?v=E5xThvyaGbE) I have yet to fully appreciate. (-;
 
 # [Declaring Victory](#contents)
 
