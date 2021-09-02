@@ -1338,11 +1338,11 @@ He doesn't want to see a lot of photos or fluffy chart animations, just the unde
 
 I let the idea percolate for about a week with the following realizations:
 
-* I'm not a huge fan of the current list view.  It has presentation issues with wrapping and clipping, making comparisons with other cities a bit muddled and tedious.  Maybe table view could be a more quant-friendly realization of list view?
+* I'm not a huge fan of the current list view.  It has presentation issues with wrapping and clipping, making comparisons with other cities a bit muddled and tedious.  Maybe table view could be a more quant-friendly list view?
 
 * Integration with the current UI is conceptually simple, just trade an ```<ol>``` for a ```<table>``` and map across the array of ranked city data to produce ```<tr>```'s instead of ```<li>```'s.  Maybe swap out the list icon for a table icon and hunt down references to ```list-view``` in my code and change it to ```table-view```.
 
-* The underlying framework I'm using, [Material Design Lite](https://getmdl.io/components/index.html#tables-section) _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love that spreadsheet vibe.  Heck, there's probably third party code for exporting HTML tables to Excel import-friendly CSVs.  For now, I'd just need to decorate my ```<table>``` with appropriate MDL classes to transform the markup into a spiffy matrix.
+* The underlying framework I'm using, [Material Design Lite](https://getmdl.io/components/index.html#tables-section), _does_ have support for clean-looking data tables with the promise of other usability wins like column sorting and multi-row selection for folks that love that spreadsheet vibe.  Heck, there's probably third party code for exporting HTML tables to Excel import-friendly CSVs.  For now, I'd just need to decorate my ```<table>``` with appropriate MDL classes to transform the markup into a spiffy matrix.
 
 Easy-peasy ... so you know this isn't gonna end well, right? :D
 
@@ -1364,7 +1364,7 @@ I realize I've created something ungood. :-/
 
 ![alt](docs/img/harm-to-table.png)
 
-Sure, I can see all the column headers now, but there's room for just _one_ row of city data, frustrating one's ability to make proximate comparisons to other cities.  Plus the scroll region is so small, it's almost too annoying to use.
+Sure, I can see all the column headers now, but there's room for just ***one*** row of city data, frustrating my ability to make proximate comparisons to other cities.  Plus the scroll region is so small, it's almost too annoying to use.
 
 Basically, my phone's browser is consuming some of those ```100vw x 100vh``` viewport units with screen elements such as smart-search windows and bottom toolbars, exacerbating some tone-deaf design choices I'm defaulting to on mobile.
 
@@ -1388,7 +1388,7 @@ Ug, this is cr@p and it a'int gonna be easy to fix.  When will this stop sucking
 
 * ```acceptance```
 
-Dang, my design _is_ kinda lame.  Why am I expending _1/3rd_ of the usable landscape viewport on a _dumb_ static header?  I really should track down better device emulation for my dev environment and maybe do the [BrowserStack thing](https://www.browserstack.com).  How are others solving this issue?  I've been on auto-pilot and not really noticing how well-designed sites adapt to the form-factor constraints of mobile.
+Dang, my design _is_ kinda lame.  Why am I expending _1/3rd_ of the usable landscape viewport on a _dumb_ static header?  I really should track down better device emulation for my dev environment and maybe do the [BrowserStack thing](https://www.browserstack.com).  How are others solving this issue?  Even with my mobile-first ethos, I've kinda been on auto-pilot and not really noticing how well-designed sites adapt to the form-factor constraints of mobile.
 
 ### [I prefer a larger table near a window](#contents)
 
@@ -1396,7 +1396,7 @@ Three weeks later, I have a better, mobile-friendly, table-view that works on iO
 
 ![alt](docs/img/mobile-friendly-table.png)
 
-in my case, it triples the number of rows visible in landscape mode, features scroll-away headers and a floating hamburger menu, ***and*** my bottom appbar no longer gets occluded by the mobile browser's dynamic toolbars.  It's not perfect but it's much better.
+In my case, the new design triples the number of city rows visible in landscape mode, features scroll-away headers and a floating hamburger menu, ***and*** my bottom appbar no longer gets occluded by the mobile browser's dynamic toolbars.  It's not perfect but it's much better.
 
 ### [Lessons learned](#contents)
 
@@ -1423,6 +1423,8 @@ Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might 
 In mobile portrait mode, where we've got enough space to view an entire city photo-card, ```scroll-snap-type: mandatory``` makes sense and feels nice and thumb-flickable.  However, in landscape mode, ```mandatory``` is overkill and actually detracts from the UX since cards may span the viewport, leaving users to curse you when the bottom content of a card snaps out of view, with slavish top-alignment.  Clearly, ```proximity``` snapping is the better choice.
 
 There's a fine line between enabling usability and good intentions that ultimately annoy.  
+
+Scroll-away headers can be great, but twitchy, overeager, scroll-into-view headers can easily burn-off all the goodwill you engender by making them disappear initially.
 
 * ***Always*** [turn on scrollbars when developing from macOS](https://css-tricks.com/scrollbar-reflowing/) so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  
 
