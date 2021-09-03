@@ -1433,7 +1433,9 @@ Scroll-away headers can be great, but twitchy, overeager, scroll-into-view heade
 
 * ***Always*** [turn on scrollbars when developing from macOS](https://css-tricks.com/scrollbar-reflowing/) so you can hunt down your errantly-coded ```overflow: scroll``` CSS bugs.  
 
-I discover my landing page actually had _three_ sets of scrollbars lurking there.
+I discover my results page actually had _three_ sets of scrollbars lurking there.
+
+![alt](docs/img/scrollbar-hell.png)
 
 * I'm getting closer to React Native
 
