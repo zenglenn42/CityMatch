@@ -1410,6 +1410,11 @@ So I risk disrupting the user's cognitive context after a device rotation ... es
 
 I should _minimize_ avoidable dissonance like that.  Maybe I need a more finessed idiom (```onresize?```) that doesn't clobber ```scrollTop``` while addressing the dead-space thing __or__ possibly capture scrollTop in my view-model and persist that in some efficient way so the user's scroll context is preserved across orientation changes and even sessions.
 
+* Some mobile best-practices can help:
+
+  * [From Google ~2019](https://developers.google.com/web/fundamentals/design-and-ux/principles)
+  * [From Impulse ~2014](https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mobile-web-checklist.html) A bit dated, but nice granular dev-fu.
+
 * Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  
 
 But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/).
