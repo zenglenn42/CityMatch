@@ -1372,7 +1372,7 @@ The victory lap becomes an unexpected mini-descent into the [Kübler-Ross model 
 
 * ```denial```
 
-Wait, this looked fine in the my dev environment!
+Wait, this looked fine in my dev environment!
 
 * ```anger```
 
