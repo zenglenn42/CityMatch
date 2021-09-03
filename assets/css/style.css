@@ -93,12 +93,6 @@
   top: -10%;
 }
 
-div.mdl-menu__container > ul > li
- {
-  /* Indent submenu list items a tad. */
-  margin-left: 1.5em;
-}
-
 .mdl-card__title-text {
   color: white;
   padding: 0 0.2em; 
@@ -474,7 +468,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__item {
   text-align: center;
-  color: white;
+  color: black;
 }
 
 .mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__item[disabled], 
