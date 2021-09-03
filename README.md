@@ -1413,7 +1413,7 @@ I should _minimize_ avoidable dissonance like that.  Maybe I need a more finesse
 * Some mobile best-practices can help:
 
   * [From Google ~2019](https://developers.google.com/web/fundamentals/design-and-ux/principles)
-  * [From Impulse ~2014](https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mobile-web-checklist.html) A bit dated, but nice granular dev-fu.
+  * [From Impulse ~2014](https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mobile-web-checklist.html) A bit dated, but nice, granular dev-fu.
 
 * Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  
 
