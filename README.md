@@ -64,7 +64,7 @@ Basic city ranking and multi-view results work:
   - [Menu refactor](#menu-refactor)
   - [A better dropdown-select component](#a-better-dropdown-select-component)
   - [Granular MVC-ification](#granular-mvc-ification)
-  - [Localization (l10n)](#localization-l10n)
+  - [Translation (t9n)](#translation-t9n)
     - [Easier language selection](#easier-language-selection)
   - [Local Persistence](#local-persistence)
     - [I should remember what language you prefer](#i-should-remember-what-language-you-prefer)
@@ -973,7 +973,7 @@ I start by creating view-models for the screens and menu:
 * models/model-priorities.js
 * models/model-results.js
 
-These manage frontend state instance variables through getters and setters.  I also aggregate my model-specific localization messages catalogs here.  The catalogs are simple javascript maps, keyed by locale (e.g., 'en-US'), with translated strings as value.
+These manage frontend state instance variables through getters and setters.  I also aggregate my model-specific translation messages catalogs here.  The catalogs are simple javascript maps, keyed by locale (e.g., 'en-US'), with translated strings as value.
 
 My domain model (stuff that will likely go on the backend some day) still gets grouped with the view-models:
 
@@ -1008,9 +1008,9 @@ I really ***should*** leverage client-side modules given all the work that has g
 
 But a more granular file structure is an incremental and relatively easy win for now.  I know immediately where I have to go when something relates to state, versus presentation, or event handling.
 
-## [Localization (l10n)](#contents)
+## [Translation (t9n)](#contents)
 
-![alt](docs/img/l10n-settings.png)
+![alt](docs/img/t9n-settings.png)
 
 The MVC and view-model work facilitate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
 
@@ -1073,9 +1073,9 @@ View.prototype.createHeader = function(title, rightNavIcon) {
 }
 ```
 
-With a conducive pattern in place, I add localization for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
+With a conducive pattern in place, I add translations for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
 
-![alt](docs/img/l10n-refactor.png)
+![alt](docs/img/t9n-refactor.png)
 
 ### [Easier language selection](#contents)
 
@@ -1083,7 +1083,7 @@ I enlist a friend to review one of my _probably-sketchy_ translations but he com
 
 Hmm.  I see his point.  He's got to click down through 4 layers to do that.  Most folks wouldn't even /know/ you had taken the trouble to localize your app with all that indirection.  So I decide to add a tasty language-dropdown on the main nav itself:
 
-![alt](docs/img/l10n-nav.png)
+![alt](docs/img/t9n-nav.png)
 
 I probably should detect/discover locale from the browser environment and set that intelligently if it happens to match one of my supported locales, defaulting to English otherwise.
 
@@ -1095,7 +1095,7 @@ Photo by Art Wall - Kittenprint
 
 ### [I should remember what language you prefer](#contents)
 
-The localization work is more satisfying if changes to the locale (and any other setting, really) are remembered across CityMatch sessions.  So I add a [commit](https://github.com/zenglenn42/CityMatch/commit/f4e7800da7d16171ecc0c6740eb449ec62ab9279) to persist settings state to local storage whenever that state changes.
+The translation work is more satisfying if changes to the locale (and any other setting, really) are remembered across CityMatch sessions.  So I add a [commit](https://github.com/zenglenn42/CityMatch/commit/f4e7800da7d16171ecc0c6740eb449ec62ab9279) to persist settings state to local storage whenever that state changes.
 
 At application start-up, the controller detects for valid, locally cached settings and updates runtime state accordingly:
 
