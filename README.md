@@ -644,7 +644,7 @@ MDL provides some nice usability with their components. One day, the buttons at 
 
 ## [Usability Kindness](#contents)
 
-Sometimes the little things matter. I had slapped an aspirational 'like' and 'share' button on the results cards, but they were disappearing against darker or busy background images, requiring jedi skills of the user to find.
+The little things matter. I had slapped an aspirational 'like' and 'share' button on the results cards, but they were disappearing against darker or busy background images, requiring jedi skills of the user to find.
 
 I fix it with an expedient in-line style (bad, I know, but great for quick riff'ing :).
 
@@ -860,7 +860,7 @@ I share this app with someone with deep design and UX experience for a brief imp
 
 - The little enable/disable slider switch on the preference cards should probably be dropped in favor of a plain checkbox since the affordance is not great.  They suggest a slide motion, whereas they only respond to a touch or click.
 
-- Consider adding enable/disable preference option off the settings menu (instead of just relying upon the checkbox on the preference card).  Some users may be more accustomed to this usage pattern.  Sometimes giving the user a couple ways to accomplish something can be a good thing.
+- Consider adding enable/disable preference option off the settings menu (instead of just relying upon the checkbox on the preference card).  Some users may be more accustomed to this usage pattern.  Giving the user a couple ways to accomplish something can be a good thing.
 
 - The 'Affordability' preference label is inverse to the $ [-------------] $$ slider control.  Typically one would expect less of something when the slider thumb control is to the left and more of it when the thumb control is to the right.  Using a term like 'Cost of Living' may be a better option.
 
@@ -943,7 +943,7 @@ As I write this, I realize I should be responding to 'change' events off the ```
 
 ## [Granular MVC-ification](#contents)
 
-Sometimes the best feature is nicely organized code arranged in a sensible way across the filesystem.  It makes thinking about and updating the codebase ***so*** much easier.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.  
+Nicely oraganized code, sensibly arrayed across a filesystem, can be a feature in its own right.  It makes thinking about and updating the codebase ***so*** much easier.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.  
 
 Currently, I'm partitioning code into three separate files along model, view, and controller boundaries:
 
