@@ -1421,7 +1421,7 @@ But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css
 
 Btw, ```width: 100%``` factors in the dimensions of scrollbars, ```width: 100vw``` does _not_.
 
-* I need better feature detection and should probably leverage [Modernizr](https://modernizr.com/) so I can code to a more robust and resilient browser model.  
+* I need better feature detection and should probably leverage [Modernizr](https://modernizr.com/) so I can code to a more robust and resilient browser model.  This could enable, for example, cleaner code and better UX for portrait versus landscape orientations.
 
 Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  
 
