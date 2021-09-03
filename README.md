@@ -1425,7 +1425,7 @@ Btw, ```width: 100%``` factors in the dimensions of scrollbars, ```width: 100vw`
 
 Cool CSS features like ```scroll-snap-type``` and ```scroll-snap-align``` might warrant different settings depending upon device orientation.  
 
-In mobile portrait mode, where we've got enough space to view an entire city photo-card, ```scroll-snap-type: mandatory``` makes sense and feels nice and thumb-flickable.  However, in landscape mode, ```mandatory``` is overkill and actually detracts from the UX since cards may span the viewport, leaving users to curse you when the bottom content of a card snaps out of view, with slavish top-alignment.  Clearly, ```proximity``` snapping is the better choice.
+In mobile portrait mode, where we've got enough space to view an entire city photo-card, ```scroll-snap-type: mandatory``` makes sense and feels nice and thumb-flickable.  However, in landscape mode, ```mandatory``` is overkill and actually detracts from the UX since cards may span the viewport, leaving users to curse you when the bottom content of a card snaps out of view, with slavish top-alignment.  Clearly, ```proximity``` snapping is the better choice.  I probably should create landscape-friendly city cards.  Maybe with a square-ish image on left and text on the right. Then I could bust out ```scroll-snap-type: mandatory``` for ***both*** orientations and have satisfyingly flick-worthy cards in all cases.
 
 There's a fine line between enabling usability and good intentions that ultimately annoy.  
 
