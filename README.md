@@ -1325,7 +1325,7 @@ View.prototype.resetBody = function() {
 }
 ```
 
-I sprinkle this around liberally and the parasitic recursion stops.
+I sprinkle this around liberally and the parasitic recursion stops.  Until I get to some performance-minded refactoring and obviate the need to rebuild stuff from scratch with each page change, this will suffice.
 
 ## [Table View](#contents)
 
