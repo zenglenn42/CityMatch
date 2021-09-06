@@ -1417,7 +1417,7 @@ I should _minimize_ avoidable dissonance like that.  Maybe I need a more finesse
 
 * Viewport units (vh, vw) now trigger mild PTSD after wrangling the [100vh mobile CSS bug/feature](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) that was thwarting my bottom appbar.  
 
-But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/).
+My innocent choice to stick a FAB in the footer way back when put me on a crash-course with this bit of webapp hazing that front-end folk have been wrestling with for years!  But it's good to know I'm [not alone](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/).
 
 Btw, ```width: 100%``` factors in the dimensions of scrollbars, ```width: 100vw``` does _not_.
 
