@@ -6,9 +6,6 @@
 //    locale,
 //    country of interest, 
 //    number of cities to include in the ranked results
-//
-// Support for localization is sketched out, though we're currently
-// hard coding for an en-US locale.
 //----------------------------------------------------------------------------------
 // TODO: Make this observable (in the software patterns sense).
 //----------------------------------------------------------------------------------
