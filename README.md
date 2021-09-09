@@ -75,7 +75,9 @@ Basic city ranking and multi-view results work:
   - [Unknown unknowns](#unknown-unknowns)
     - [Proliferating click handlers](#proliferating-click-handlers)
     - [Managed event handlers](#managed-event-handlers)
-  - [Harden App](#harden-app)
+  - [Harden & Refactor](#harden-refactor)
+    - [Unwelcome Recursion](#unwelcome-recursion)
+    - [T9n Refactor](#t9n-refactor)
   - [Table View](#table-view)
     - [Your table is ready](#your-table-is-ready)
     - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
@@ -107,7 +109,7 @@ It's a varied demographic, mostly middle aged married couples getting their groo
 
 And then he appears.
 
-Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates with the band, offering up some fist pumps to the middle-aged rockers.
+Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates with the band, offering up some fist pumps to the seasoned rockers on stage.
 
 ![alt](docs/img/fist-pump.png)
 
@@ -1075,7 +1077,7 @@ View.prototype.createHeader = function(title, rightNavIcon) {
 
 With a conducive pattern in place, I add translations for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
 
-![alt](docs/img/t9n-refactor.png)
+![alt](docs/img/t9n-landing.png)
 
 ### [Easier language selection](#contents)
 
@@ -1300,7 +1302,7 @@ The other thing I learn is that Safari, as a dev environment, frequently needs t
 
 I'll find a more exemplary way to manage event handlers, but I'm out of the ditch for now.
 
-## [Harden App](#contents)
+## [Harden & Refactor](#contents)
 
 ### [Unwelcome Recursion](#contents)
 
@@ -1326,6 +1328,55 @@ View.prototype.resetBody = function() {
 ```
 
 I sprinkle this around liberally and the parasitic recursion stops.  Until I get to some performance-minded refactoring and obviate the need to rebuild stuff from scratch with each page change, this will suffice.
+
+### [T9n Refactor](#contents)
+
+Anytime you can write 1000 lines of code and delete 2000 with no loss of functionality and arguably better maintainability is a good day.  Less code to maintain, less code to send down the wire.
+
+![alt](docs/img/t9n-refactor.png)
+
+Of course it probably reflects some wisdom gained over the first attempt.
+
+After seeing the formal parameter list for my View object grow to over 100 items, I notice a
+good 70 of those things are simply string getters which fetch a static string out of a message catalog based upon the current language/locale and render on the screen with the following usage pattern:
+
+```
+  let title = this.getAppName() // Returns 'City Match' when locale is en-US.
+```
+
+With this [commit](https://github.com/zenglenn42/CityMatch/commit/724a502ad2b7fec4e061732e13b583cd0cda604c), the pattern becomes:
+
+```
+  let title = this.t('AppName') // Return translated string associated with 'AppName'.
+```
+
+This allows me to replace all the getAppName(), getAppSlogan(), ... getBlah() methods,
+sprinkled about various view-models, with a single _translation_ method, ModelT9n.t().
+
+Knowledge of the current locale is established by a getter from the Settings view-model, passed into the T9n's model constructor and invoked with each translation request.  Some day, the T9n model will simply be an observer of locale state and we'll dispense with the synchronous locale checks.
+
+For now, I aggregate all the component message catalogs into ```assets/js/models/model-t9n.js``` where they merge into a single, app-level catalog.  
+
+The [merge](https://github.com/zenglenn42/CityMatch/blob/724a502ad2b7fec4e061732e13b583cd0cda604c/assets/js/models/model-t9n.js#L27) involves a double-reduction across an array of supported locales and an array of component catalogs to produce a map of symbolic names to translated strings.  
+
+```
+  this.mergeCatalogs = (localeArray, catalogArray) => {
+    let mergedCatalog = localeArray.reduce( (localeACC, locale) => {
+      localeACC = { ...localeACC, [locale]:
+            catalogArray.reduce( (catalogACC, catalog) => {
+              catalogACC = { ...catalogACC, ...catalog[locale] }
+              return catalogACC
+            }, {})
+      }
+      return localeACC
+    }, {})
+    return mergedCatalog
+  }
+```
+
+In a scaled-up effort, it might make sense to split out each translated catalog into it's own file so new languages could be added without contention for the single file currently holding all catalogs.  Plus namespacing could be leveraged to prevent collision of symbolic names for strings.  
+
+But the app is relatively small and it's just me at the helm so I can't really justify the effort to split that out just now.  Really wish JS had enumerated types, though.
 
 ## [Table View](#contents)
 
