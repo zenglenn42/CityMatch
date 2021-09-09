@@ -915,7 +915,7 @@ Photo by Danielle MacInnes
 
 ## [Menu refactor](#contents)
 
-What started out as a modest, hardcoded mock-up ...
+What starts out as a modest, hardcoded mock-up ...
 
 ![alt](docs/img/slideout-menu.png)
 
@@ -1331,11 +1331,11 @@ I sprinkle this around liberally and the parasitic recursion stops.  Until I get
 
 ### [T9n Refactor](#contents)
 
-Anytime you can write 1000 lines of code and delete 2000 with no loss of functionality and arguably better maintainability is a good day.  Less code to maintain, less code to send down the wire.
+Anytime you can refactor 2000 lines of code down to under 1000 with no loss of functionality and arguably better maintainability, it's is a good day.  Less code to maintain, less code to send down the wire.
 
 ![alt](docs/img/t9n-refactor.png)
 
-Of course it probably reflects some wisdom gained over the first attempt.
+Of course, it probably reflects some wisdom gained over the first attempt, to put it gently.
 
 After seeing the formal parameter list for my View object grow to over 100 items, I notice a
 good 70 of those things are simply string getters which fetch a static string out of a message catalog based upon the current language/locale and render on the screen with the following usage pattern:
