@@ -10,13 +10,13 @@ View.prototype.setMaxResults = function() {
   // TODO: Split this out to a menu component?
   let settingsLabelMaxResultsEl = document.querySelector("#label-settings-max-results")
   if (settingsLabelMaxResultsEl) {
-    settingsLabelMaxResultsEl.innerHTML = `${this.getMenuSettingsShowTop(this.getMaxResults())}`
+    settingsLabelMaxResultsEl.innerHTML = `${this.t('MenuShowTop', this.getMaxResults())}`
   }
 
   // TODO: Split this out to a menu component?
   let settingsMenuMaxResultsEl = document.querySelector("#settings-max-results-menu")
   if (settingsMenuMaxResultsEl) {
-    settingsMenuMaxResultsEl.innerHTML = `${this.getMenuSettingsShowTop(this.getMaxResults())}`
+    settingsMenuMaxResultsEl.innerHTML = `${this.t('MenuShowTop', this.getMaxResults())}`
   }
 }
 
@@ -25,7 +25,7 @@ View.prototype.setLanguage = function() {
   let settingsMenuLanguageEl = document.querySelector("#settings-language-menu")
   if (settingsMenuLanguageEl) {
     settingsMenuLanguageEl.innerHTML = 
-          `${this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))}`
+          `${this.t('MenuUseLang', this.getLangName(this.getLocale()))}`
   }
 
   // Recreate the settings page under the new language/locale.
@@ -42,8 +42,8 @@ View.prototype.createSettingsBody = function createSettingsBody() {
     this.resetBody()
   }
 
-  let title = this.getAppName()
-  let subTitle  = this.getSettingsTitle()
+  let title = this.t('AppName')
+  let subTitle  = this.t('SettingsSubtitle')
   let header = this.createHeader(title, subTitle)
   let menuDrawer = this.createMenuDrawer()
   let main = this.createSettingsMain()
@@ -141,7 +141,7 @@ View.prototype.getCountryDropdown = function(countryListItems) {
         <input id="settings-country" type="text" value="" class="mdl-textfield__input" readonly>
         <input type="hidden" value="" name="settings-country"/>
         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-        <label class="mdl-textfield__label" for="settings-country">${this.getSelectCountry()}</label>
+        <label class="mdl-textfield__label" for="settings-country">${this.t('SelectCountry')}</label>
         <ul for="settings-country" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
           ${countryListItems}
         </ul>
@@ -184,7 +184,7 @@ View.prototype.getMaxResultsDropdown = function(maxResultsListItems) {
         <input id="settings-max-results" type="text" value="" class="mdl-textfield__input" readonly>
         <input type="hidden" value="" name="settings-max-results"/>
         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-        <label class="mdl-textfield__label" for="settings-max-results">${this.getSelectQuantity()}</label>
+        <label class="mdl-textfield__label" for="settings-max-results">${this.t('SelectQuantity')}</label>
         <ul for="settings-max-results" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
           ${maxResultsListItems}
         </ul>
@@ -227,17 +227,17 @@ View.prototype.createSettingsMain = function() {
   g.classList.add("mdl-grid")
   g.classList.add("settings-grid")
 
-  let langLabel = this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))
+  let langLabel = this.t('MenuUseLang', this.getLangName(this.getLocale()))
   let langListItems = this.getLangListItems(this.getLangOptionsMap())
   let langDropdown = this.getLangDropdown(langListItems)
   let editLangSetting = this.getEditLangSetting(langLabel, langDropdown)
 
-  let countryLabel = this.getMenuSettingsShowCities(this.getCountryName(this.getCountryCode()))
+  let countryLabel = this.t('MenuShowCities', this.getCountryName(this.getCountryCode()))
   let countryListItems = this.getCountryListItems(this.getCountryOptionsMap())
   let countryDropdown = this.getCountryDropdown(countryListItems)
   let editCountrySetting = this.getEditCountrySetting(countryLabel, countryDropdown)
 
-  let maxResultsLabel = this.getMenuSettingsShowTop(this.getMaxResults())
+  let maxResultsLabel = this.t('MenuShowTop', this.getMaxResults())
   let maxResultsListItems = this.getMaxResultsListItems(this.getMaxResultsOptions())
   let maxResultsDropdown = this.getMaxResultsDropdown(maxResultsListItems)
   let editMaxResultsSetting = this.getEditMaxResultsSetting(maxResultsLabel, maxResultsDropdown)

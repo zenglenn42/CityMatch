@@ -26,8 +26,8 @@ View.prototype.createPrioritiesBody = function createPrioritiesBody() {
     this.resetBody()
   }
 
-  let title = this.getAppName()
-  let subTitle  = this.getPrioritiesTitle()
+  let title = this.t('AppName')
+  let subTitle  = this.t('PrioritiesSubtitle')
   let header = this.createHeader(title, subTitle)
   let menuDrawer = this.createMenuDrawer()
   let main = this.createPrioritiesMain()
@@ -63,8 +63,8 @@ View.prototype.createPrioritiesMain = function() {
   g.classList.add("mdl-grid")
   m.appendChild(g)
 
-  let happinessTitle = this.getPrioritiesHappinessTitle()
-  let happinessTooltip = this.getPrioritiesHappinessTooltip()
+  let happinessTitle = this.t('HappinessTitle')
+  let happinessTooltip = this.t('HappinessTooltip')
   let priorityParams = {
     img: "assets/img/civic-happiness-sf.jpg",
     titleText: happinessTitle,
@@ -87,8 +87,8 @@ View.prototype.createPrioritiesMain = function() {
   let c = this.createPrioritiesSliderCard(priorityParams)
   g.appendChild(c)
 
-  let politicsTitle = this.getPrioritiesPoliticsTitle()
-  let politicsTooltip = this.getPrioritiesPoliticsTooltip()
+  let politicsTitle = this.t('PoliticsTitle')
+  let politicsTooltip = this.t('PoliticsTooltip')
   let curPoliticsVal = this.getPoliticsValue().rep16_frac
   priorityParams = {
     img: "assets/img/politics-flags.jpg",
@@ -111,8 +111,8 @@ View.prototype.createPrioritiesMain = function() {
   c = this.createPrioritiesSliderCard(priorityParams)
   g.appendChild(c)
 
-  let affordabilityTitle = this.getPrioritiesAffordabilityTitle()
-  let affordabilityTooltip = this.getPrioritiesAffordabilityTooltip()
+  let affordabilityTitle = this.t('AffordabilityTitle')
+  let affordabilityTooltip = this.t('AffordabilityTooltip')
   priorityParams = {
     img: "assets/img/affordability-piggybank.jpg",
     titleText: affordabilityTitle,
@@ -134,9 +134,9 @@ View.prototype.createPrioritiesMain = function() {
   c = this.createPrioritiesSliderCard(priorityParams)
   g.appendChild(c)
 
-  let jobSearchTitle = this.getPrioritiesJobSearchTitle()
-  let jobSearchTooltip = this.getPrioritiesJobSearchTooltip()
-  let jobSearchPlaceholder = this.getPrioritiesJobSearchPlaceholder()
+  let jobSearchTitle = this.t('JobSearchTitle')
+  let jobSearchTooltip = this.t('JobSearchTooltip')
+  let jobSearchPlaceholder = this.t('JobSearchPlaceholder')
   priorityParams = {
     img: "assets/img/job-search.jpg",
     switchId: `${this.switchJobSearchId}`,

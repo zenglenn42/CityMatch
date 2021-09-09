@@ -14,8 +14,8 @@ View.prototype.createResultsBody = function() {
     this.resetBody()
   }
 
-  let title = this.getAppName()
-  let subTitle = this.getResultsSubtitle()
+  let title = this.t('AppName')
+  let subTitle = this.t('ResultsSubtitle')
 
   // TODO: Add ability to make the subTitle disappear in *.createHeader()
   //       especially on mobile when swiping up to view content below.
@@ -88,9 +88,9 @@ View.prototype.createResultsMain = function() {
     child.classList.add("grid-content")
     m.appendChild(child)
     let noPrioritiesParams = {
-      img: this.getNoResultsImg(),
+      img: this.t('NoResultsImg'),
       titleText: this.getNoResults(),
-      supportingText: this.getNoResultsAdvice()
+      supportingText: this.t('NoResultsAdvice')
     }
     let c = this.createResultsNoPrioritiesCard(noPrioritiesParams)
     g.classList.add("mdl-grid")
@@ -157,8 +157,8 @@ View.prototype.createResultsMain = function() {
         this.rankedList.map(cityData => {
           if (rank == monetizationPosition1 || rank == monetizationPosition2) {
             let monetizeParams = {
-              img: this.getMonetizeImg(),
-              titleText: this.getMonetizeHere()
+              img: this.t('MonetizeImg'),
+              titleText: this.t('MonetizeHere')
             }
             let mc = this.createResultsMonetizeCard(monetizeParams)
             g.appendChild(mc)
@@ -202,11 +202,11 @@ View.prototype.createTableView = function(userPriorities, rank = 1) {
 
   thead.innerHTML = `
     <tr>
-      <th class="mdl-data-table__cell--non-numeric">${this.getTableLabelRank()}</th>
-      <th style="text-align: left;">${this.getTableLabelCity()}</th>
-      <th style="text-align: center;">${this.getTableLabelHappiness()}</th>
-      <th style="text-align: center;">${this.getTableLabelPolitics()}</th>
-      <th style="text-align: center;">${house} ${this.getTableLabelAffordability()}</th>
+      <th class="mdl-data-table__cell--non-numeric">${this.t('TableLabelRank')}</th>
+      <th style="text-align: left;">${this.t('TableLabelCity')}</th>
+      <th style="text-align: center;">${this.t('TableLabelHappiness')}</th>
+      <th style="text-align: center;">${this.t('TableLabelPolitics')}</th>
+      <th style="text-align: center;">${house} ${this.t('TableLabelAffordability')}</th>
     </tr>
   `
 
@@ -243,26 +243,26 @@ View.prototype.createChartView = function(chartId = "myChart") {
     labels: cityLabels,
     datasets: [
       {
-        label: this.getChartLabelCombined(),
+        label: this.t('ChartLabelCombined'),
         backgroundColor: "black",
         stack: "Stack 0",
         data: rankData
       },
       {
-        label: this.getChartLabelHappiness(),
+        label: this.t('ChartLabelHappiness'),
         // backgroundColor: "rgba(255, 99, 132, 0.2)",
         backgroundColor: "gold",
         stack: "Stack 1",
         data: happinessData
       },
       {
-        label: this.getChartLabelAffordability(),
+        label: this.t('ChartLabelAffordability'),
         backgroundColor: "lightseagreen",
         stack: "Stack 1",
         data: affordabilityData
       },
       {
-        label: this.getChartLabelPolitics(),
+        label: this.t('ChartLabelPolitics'),
         backgroundColor: "mediumslateblue",
         stack: "Stack 1",
         data: politicsData
@@ -278,7 +278,7 @@ View.prototype.createChartView = function(chartId = "myChart") {
       },
       title: {
         display: true,
-        text: this.getChartTitle()
+        text: this.t('ChartTitle')
       },
       tooltips: {
         mode: "index",
@@ -343,7 +343,7 @@ View.prototype.marshallModelData = function(rank, cityData) {
   if (cityProperties[0].img && this.getOnlineStatus() === true) {
     cityParams.img = cityProperties[0].img["imgSrc"]
   } else {
-    cityParams.img = this.getMissingCityImg()
+    cityParams.img = this.t('MissingCityImg')
   }
   cityParams.titleText = cityName.replace(/['"]+/g, "")
   cityParams.happiness = cityProperties[0].happiness
@@ -400,7 +400,7 @@ View.prototype.createResultsCityCard = function(cityParams) {
     '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
   let politics = `${donkey}&nbsp;${cityParams.politics.demFraction}%&nbsp;&nbsp; ${elephant}&nbsp;${cityParams.politics.repFraction}%`
   let affordability = this.formatter.format(cityParams.affordability)
-  let cityStats = `<p>${this.getPhotoLabelHappiness()}:  ${happinessString}</br> ${this.getPhotoLabelAffordability()}: ${affordability}</br> ${politics}</p>`
+  let cityStats = `<p>${this.t('PhotoLabelHappiness')}:  ${happinessString}</br> ${this.t('PhotoLabelAffordability')}: ${affordability}</br> ${politics}</p>`
 
   p.classList.add("mdl-cell")
   p.classList.add("results-cell")
@@ -456,7 +456,7 @@ View.prototype.createResultsMonetizeCard = function(params) {
           <!-- <p style="line-height: 1.25em;">${params.supportingText}</p> -->
           <div class="mdl-card__actions mdl-card--border">
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              ${this.getMonetizeLearnMore()}
+              ${this.t('MonetizeLearnMore')}
             </a>
           </div>
           <div class="mdl-card__menu">
@@ -484,7 +484,7 @@ View.prototype.createResultsListItem = function(cityParams) {
 
   let affordability = this.formatter.format(cityParams.affordability)
 
-  let cityStats = `${this.getListLabelHappiness()}:  ${happinessString} | ${this.getListLabelAffordability()}: ${affordability} | ${politics}`
+  let cityStats = `${this.t('ListLabelHappiness')}:  ${happinessString} | ${this.t('ListLabelAffordability')}: ${affordability} | ${politics}`
 
   li.classList.add("mdl-list__item")
   li.classList.add("mdl-list__item--three-line")
@@ -563,7 +563,7 @@ View.prototype.getMapViewLinkHtml = function(offline, isActive = "") {
   if (offline) {
     linkId += "-disabled"
     disableAttr = "disabled"
-    mapTooltip = this.getNoMapView()
+    mapTooltip = this.t('NoMapView')
     mapTooltipHtml = `
         <div style="text-transform: none;"
               class="mdl-tooltip mdl-tooltip--medium mdl-tooltip--top" 

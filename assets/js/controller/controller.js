@@ -24,6 +24,7 @@
 //----------------------------------------------------------------------------------
 
 function Controller(bodyDivId, locale = "en-US") {
+
   // Get network status at object creation-time.
   //
   // We may want to set this up on an interval, but for now, we just check at
@@ -43,7 +44,34 @@ function Controller(bodyDivId, locale = "en-US") {
 
   // Instantiate view models.
 
-  this.settings = new ModelSettings(locale, this.cities.getNumCities())
+  // The following 3 methods, needed by the Settings view-model constructor,
+  // function as class methods from the translation model (t9n) which we
+  // haven't instantiated yet.
+  //
+  // We can't instatiate the t9n object prior because /that/ constructor has
+  // a dependency upon the getLocale getter which comes from an instantiated
+  // settings object.
+  //
+  // So we have something of a circular dependency here between Settings and Translation
+  // view-models.  One way out of this circumstance is to treat these t9n methods
+  // as 'class' methods, which avoids the need to instantiate a t9n object.  Since
+  // I'm not using ES6 class semantics and the static key word, I simply reference the
+  // methods out of the prototype of ModelT9n.
+
+  let isValidLocale = ModelT9n.prototype.isValidLocale
+  let isValidLocaleProperty = ModelT9n.prototype.isValidLocaleProperty
+  let isValidCountryCode = ModelT9n.prototype.isValidCountryCode
+
+  let maxResults = 10
+  let countryCode = "US"
+  this.settings = new ModelSettings(
+      locale,
+      isValidLocale,
+      this.cities.getNumCities(),
+      maxResults,
+      countryCode,
+      isValidCountryCode)
+
   if (this.cache.hasSettings()) {
     // Update current settings state from cached settings.
 
@@ -52,11 +80,10 @@ function Controller(bodyDivId, locale = "en-US") {
   }
   let getSettingsLocale = this.settings.getLocale.bind(this.settings)
 
-  this.landing = new ModelLanding(getSettingsLocale)
-  this.menu = new ModelMenu(getSettingsLocale)
+  // Instantiate translation (t9n) object.
+  this.t9n = new ModelT9n(getSettingsLocale)
 
   this.priorities = new ModelPriorities(
-    getSettingsLocale,
     this.cities.getMidAffordabilityValue(),
     this.cities.getMidHappinessValue(),
     this.cities.getMidPoliticsValue(),
@@ -72,7 +99,6 @@ function Controller(bodyDivId, locale = "en-US") {
   }
 
   this.results = new ModelResults(
-    getSettingsLocale,
     this.cities.isValidCityList,
     "photo-view"
   )
@@ -85,7 +111,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.results.set(persistedResults)
   }
 
-  this.FAB = new ModelFAB(getSettingsLocale)
+  this.FAB = new ModelFAB(getSettingsLocale, isValidLocaleProperty)
   if (this.cache.hasFAB()) {
     // Update current fab state from cached settings.
 
@@ -117,25 +143,17 @@ function Controller(bodyDivId, locale = "en-US") {
     this.cache.hasSettings.bind(this.cache),
     this.cache.hasFAB.bind(this.cache),
     this.cache.hasPriorities.bind(this.cache),
-    getSettingsLocale,
+    this.t9n.t.bind(this.t9n),  // translates static strings into locale language
+    this.t9n.getLangName.bind(this.t9n),
+    this.t9n.getLangOptionsMap.bind(this.t9n),
+    this.t9n.getCountryName.bind(this.t9n),
+    this.t9n.getCountryOptionsMap.bind(this.t9n),
+    this.t9n.getCurrency.bind(this.t9n),
     this.settings.githubUrl,
     this.settings.getMaxResults.bind(this.settings),
     this.settings.getMaxResultsOptions.bind(this.settings),
-    this.settings.getLangName.bind(this.settings),
-    this.settings.getLangOptionsMap.bind(this.settings),
+    getSettingsLocale,
     this.settings.getCountryCode.bind(this.settings),
-    this.settings.getCountryName.bind(this.settings),
-    this.settings.getCountryOptionsMap.bind(this.settings),
-    this.settings.getCurrency.bind(this.settings),
-    this.settings.getTitle.bind(this.settings),
-    this.settings.getSelectLang.bind(this.settings),
-    this.settings.getSelectLangTooltip.bind(this.settings),
-    this.settings.getUseLang.bind(this.settings),
-    this.settings.getSelectCountry.bind(this.settings),
-    this.settings.getShowCities.bind(this.settings),
-    this.settings.getSelectQuantity.bind(this.settings),
-    this.settings.getShowTopCitiesBegin.bind(this.settings),
-    this.settings.getShowTopCitiesEnd.bind(this.settings),
     this.priorities.getAffordabilityValue.bind(this.priorities),
     this.priorities.getHappinessValue.bind(this.priorities),
     this.priorities.getPoliticsValue.bind(this.priorities),
@@ -145,68 +163,8 @@ function Controller(bodyDivId, locale = "en-US") {
     this.priorities.getJobSearchEnabled.bind(this.priorities),
     this.priorities.getNormalizedPriorities.bind(this.priorities),
     this.priorities.hasNoPriorities.bind(this.priorities),
-    this.priorities.getTitle.bind(this.priorities),
-    this.priorities.getHappinessTitle.bind(this.priorities),
-    this.priorities.getHappinessTooltip.bind(this.priorities),
-    this.priorities.getPoliticsTitle.bind(this.priorities),
-    this.priorities.getPoliticsTooltip.bind(this.priorities),
-    this.priorities.getAffordabilityTitle.bind(this.priorities),
-    this.priorities.getAffordabilityTooltip.bind(this.priorities),
-    this.priorities.getJobSearchTitle.bind(this.priorities),
-    this.priorities.getJobSearchTooltip.bind(this.priorities),
-    this.priorities.getJobSearchPlaceholder.bind(this.priorities),
-    this.landing.getAppName.bind(this.landing),
-    this.landing.getSlogan.bind(this.landing),
-    this.landing.getBlurb.bind(this.landing),
-    this.landing.getCopyrightDate.bind(this.landing),
-    this.menu.getMenuTitle.bind(this.menu),
-    this.menu.getMenuView.bind(this.menu),
-    this.menu.getMenuViewIntro.bind(this.menu),
-    this.menu.getMenuViewPriorities.bind(this.menu),
-    this.menu.getMenuViewBestBets.bind(this.menu),
-    this.menu.getMenuViewBlog.bind(this.menu),
-    this.menu.getMenuPriorities.bind(this.menu),
-    this.menu.getMenuPrioritiesEdit.bind(this.menu),
-    this.menu.getMenuPrioritiesClear.bind(this.menu),
-    this.menu.getMenuPrioritiesDefault.bind(this.menu),
-    this.menu.getMenuPrioritiesHappiness.bind(this.menu),
-    this.menu.getMenuPrioritiesPolitics.bind(this.menu),
-    this.menu.getMenuPrioritiesCost.bind(this.menu),
-    this.menu.getMenuSettings.bind(this.menu),
-    this.menu.getMenuSettingsEdit.bind(this.menu),
-    this.menu.getMenuSettingsClear.bind(this.menu),
-    this.menu.getMenuSettingsDefault.bind(this.menu),
-    this.menu.getMenuSettingsUseLang.bind(this.menu),
-    this.menu.getMenuSettingsShowCities.bind(this.menu),
-    this.menu.getMenuSettingsShowTop.bind(this.menu),
-    this.menu.getMenuSettingsHelp.bind(this.menu),
     this.results.getActiveDataView.bind(this.results),
     this.results.getRankedList.bind(this.results),
-    this.results.getResultsTitle.bind(this.results),
-    this.results.getNoResults.bind(this.results),
-    this.results.getNoResultsImg.bind(this.results),
-    this.results.getNoResultsAdvice.bind(this.results),
-    this.results.getNoMapView.bind(this.results),
-    this.results.getMissingCityImg.bind(this.results),
-    this.results.getMonetizeHere.bind(this.results),
-    this.results.getMonetizeLearnMore.bind(this.results),
-    this.results.getMonetizeImg.bind(this.results),
-    this.results.getPhotoLabelHappiness.bind(this.results),
-    this.results.getPhotoLabelAffordability.bind(this.results),
-    this.results.getPhotoLabelPolitics.bind(this.results),
-    this.results.getChartTitle.bind(this.results),
-    this.results.getChartLabelCombined.bind(this.results),
-    this.results.getChartLabelHappiness.bind(this.results),
-    this.results.getChartLabelAffordability.bind(this.results),
-    this.results.getChartLabelPolitics.bind(this.results),
-    this.results.getListLabelHappiness.bind(this.results),
-    this.results.getListLabelAffordability.bind(this.results),
-    this.results.getListLabelPolitics.bind(this.results),
-    this.results.getTableLabelRank.bind(this.results),
-    this.results.getTableLabelCity.bind(this.results),
-    this.results.getTableLabelHappiness.bind(this.results),
-    this.results.getTableLabelAffordability.bind(this.results),
-    this.results.getTableLabelPolitics.bind(this.results),
     this.checkInternet.bind(this),
     this.getOnlineStatus.bind(this)
   )

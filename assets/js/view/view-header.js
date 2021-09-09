@@ -21,7 +21,7 @@ View.prototype.dfltNavPropsArray = [
   {
     id: 'nav-lang-button',
     icon: 'language',
-    tooltip: (self) => {return self.getSelectLangTooltip()},
+    tooltip: (self) => {return self.t('SelectLangTooltip')},
     enabled: false,
     html: (self, id, icon = 'warning', tooltip = '', disabled = '') => {
       let tooltipText = (typeof tooltip === 'function') ? tooltip(self) : tooltip

@@ -25,14 +25,20 @@
 
 function ModelFAB(
         getLocale = () => {return "en-US"}, 
+        isValidLocaleProperty,
         pageState = "dontcare_landing", 
         visibility = true) {
 
   if (!getLocale || typeof getLocale !== 'function') {
     throw('ModelFAB: Failed constructor.  Invalid getLocale fn parameter')
   }
+  if (!isValidLocaleProperty || typeof isValidLocaleProperty !== 'function') {
+    throw('ModelFAB: Failed constructor.  Invalid isValidLocaleProperty fn parameter')
+  }
+
   this.getLocale = getLocale
   this.dfltLocale = "en-US"
+  this.isValidLocaleProperty = isValidLocaleProperty
 
   // Localize the FAB tooltip text.
   //
@@ -189,18 +195,6 @@ ModelFAB.prototype.isValidPage = function(page) {
       result = true
   }
   return result
-}
-
-ModelFAB.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" ||
-          locale === "hi-IN" ||
-          locale === "es-ES" ||
-          locale === "zh-CN")
-}
-
-ModelFAB.prototype.isValidLocaleProperty = function(locale, prop) {
-  return (this.msgCatalog.hasOwnProperty(locale)) &&
-         (this.msgCatalog[locale].hasOwnProperty(prop))
 }
 
 ModelFAB.prototype.getGotoNextStep = function() {

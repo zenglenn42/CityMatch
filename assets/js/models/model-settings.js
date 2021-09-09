@@ -13,7 +13,25 @@
 // TODO: Make this observable (in the software patterns sense).
 //----------------------------------------------------------------------------------
 
-function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
+function ModelSettings(
+            locale = "en-US",
+            isValidLocale,
+            numCities,
+            maxResults,
+            countryCode,
+            isValidCountryCode) {
+
+  // Validate input parameters.
+
+  if (typeof isValidLocale !== 'function') {
+    throw new Error('ModelSettings(ctor) Expecting isValidLocale to be a function.')
+  }
+  if (typeof isValidCountryCode !== 'function') {
+    throw new Error('ModelSettings(ctor) Expecting isValidCountryCode to be a function.')
+  }
+
+  this.isValidLocale = isValidLocale
+  this.isValidCountryCode = isValidCountryCode
 
   // Number of cities in the database for the country indicated by countryCode.
 
@@ -39,32 +57,6 @@ function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
 
   this.dfltLocale = "en-US"
   this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
-  this.langOptionsMap = {
-    "en-US": {
-      name: "English",
-      enName: "English",
-      flag: "🇺🇸",   // Flag emoji from: https://emojipedia.org/flags/
-      supported: true
-    },
-    "es-ES": {
-      name: "Español",
-      enName: "Spanish",
-      flag: "🇪🇸",
-      supported: true  // May be used by view to gray out a selection list option.
-    },
-    "hi-IN": {
-      name: "हिंदी",
-      enName: "Hindi",
-      flag: "🇮🇳",
-      supported: true
-    },
-    "zh-CN": {
-      name: "普通话",
-      enName: "Mandarin",
-      flag: "🇨🇳",
-      supported: true  // May be used by view to gray out a selection list option.
-    }
-  }
 
   // Select from among these (ISO 3166) countries when looking for a city match.
   // Populates drop-down selection list in view.
@@ -74,71 +66,9 @@ function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
   // and is used by Intl.NumberFormat() in the view layer to format currency.
 
   this.dfltCountryCode = "US"
-  this.countryCode = (this.isValidCountryCode(countryCode)) ? countryCode : this.dfltCountryCode
-  this.countryOptionsMap = {
-    "US": {
-      name: "United States",
-      flag: "🇺🇸",
-      supported: true,
-      currency: "USD"
-    },
-    "IN": {
-      name: "India",
-      flag: "🇮🇳",
-      supported: false, // May be used to gray-out in user interface.
-      currency: "USD"   // Should probably be rupies for full localization.
-    },
-    "CR": {
-      name: "Costa Rica",
-      flag: "🇨🇷",
-      supported: false, // May be used to gray-out in user interface.
-      currency: "CRC"
-    }
-  }
-
-  this.msgCatalog = {
-    "en-US": {
-      title: "Edit settings ...",
-      selectLang: "Select language",
-      selectLangTooltip: "Select language locale",
-      useLang: "Use",
-      selectCountry: "Select country",
-      showCities: "Show cities in",
-      selectQuantity: "Select quantity",
-      showTop: "Show top",
-      showTopCities: "cities",
-    },
-    "hi-IN": {
-      title: "सेटिंग अपडेट करें ...",
-      selectLang: "भाषा का चयन करें",
-      useLang: "भाषा का प्रयोग करें",
-      selectCountry: "देश चुनें",
-      showCities: "शहरों में दिखाओ",
-      selectQuantity: "मात्रा चुनें",
-      showTop: "शीर्ष ",
-      showTopCities: "शहरों को दिखाएं"
-    },
-    "es-ES": {
-      title: "Editar configuración ...",
-      selectLang: "Seleccione el idioma",
-      useLang: "Usar",
-      selectCountry: "Seleccionar país",
-      showCities: "Mostrar ciudades en",
-      selectQuantity: "Selecciona la cantidad",
-      showTop: "Mostrar las",
-      showTopCities: "mejores ciudades"
-    },
-    "zh-CN": {
-      title: "编辑设置 ...",
-      selectLang: "选择语言",
-      useLang: "选择",
-      selectCountry: "选择国家",
-      showCities: "显示城市",
-      selectQuantity: "选择数量",
-      showTop: "列举",
-      showTopCities: "城市"
-    },
-  }
+  this.countryCode = (this.isValidCountryCode(countryCode))
+      ? countryCode
+      : this.dfltCountryCode
 }
 
 ModelSettings.prototype.githubUrl = 
@@ -199,10 +129,6 @@ ModelSettings.prototype.getMaxResultsOptions = function() {
   return this.maxResultsOptions.slice(0)  
 }
 
-ModelSettings.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES" || locale === "zh-CN")
-}
-
 // Introduce notion of locale (based upon BCP 47 standard).
 //
 // Locales embody regional differences that affect how content
@@ -212,22 +138,6 @@ ModelSettings.prototype.isValidLocale = function(locale) {
 
 ModelSettings.prototype.getLocale = function() {
   return (this.isValidLocale(this.locale)) ? this.locale : this.dfltLocale
-}
-
-ModelSettings.prototype.getLangName = function(locale) {
-  let langName = "missing-langName"
-  if (this.isValidLocale(this.locale)) {
-    langName = (this.langOptionsMap.hasOwnProperty(locale) &&
-                this.langOptionsMap[locale].hasOwnProperty('name')) ?
-               this.langOptionsMap[locale].name : locale + "-" + langName
-  } else {
-    console.error('ModelSettings.getLangName(locale): Invalid locale =', locale)
-  }
-  return langName
-}
-
-ModelSettings.prototype.getLangOptionsMap = function() {
-  return JSON.parse(JSON.stringify(this.langOptionsMap))
 }
 
 ModelSettings.prototype.setLocale = function(locale) {
@@ -241,38 +151,12 @@ ModelSettings.prototype.setLocale = function(locale) {
   return result
 }
 
-ModelSettings.prototype.isValidLocaleProperty = function(locale, prop) {
-  return (this.msgCatalog.hasOwnProperty(locale)) &&
-         (this.msgCatalog[locale].hasOwnProperty(prop))
-}
-
-ModelSettings.prototype.isValidCountryCode = function(countryCode) {
-  return (countryCode === "US" || countryCode === "IN" )
-}
-
 ModelSettings.prototype.getCountryCode = function() {
   if (this.isValidCountryCode(this.countryCode)) {
     return this.countryCode
   } else {
     return this.dfltCountryCode
   }
-}
-
-ModelSettings.prototype.getCountryName = function(countryCode) {
-  let countryName = "missing-countryName"
-  if (this.isValidCountryCode(this.countryCode)) {
-    countryName =
-        (this.countryOptionsMap.hasOwnProperty(countryCode) &&
-         this.countryOptionsMap[countryCode].hasOwnProperty('name')) ?
-        this.countryOptionsMap[countryCode].name : countryCode + "-" + countryName
-  } else {
-    console.error('ModelSettings.getCountryName(countryCode): Invalid countryCode =', countryCode)
-  }
-  return countryName
-}
-
-ModelSettings.prototype.getCountryOptionsMap = function() {
-  return JSON.parse(JSON.stringify(this.countryOptionsMap))
 }
 
 ModelSettings.prototype.setCountryCode = function(countryCode) {
@@ -325,136 +209,6 @@ ModelSettings.prototype.set = function(jsonObj) {
   } else {
     console.log("[Info] ModelSettings.set(json): Ignoring set, json parameter is undefined.")
   }
-}
-
-// Return the 3-letter iso-currency descriptor associated with
-// a given country code as defined by this site:
-// https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/amendments/lists/list_one.xml
-//
-// For example, given the countryCode = "US" return "USD".
-// This is used by the view to generate the related "$" symbol.
-
-ModelSettings.prototype.getCurrency = function(countryCode) {
-  let code = countryCode || this.countryCode
-
-  return this.countryOptionsMap[code].currency
-}
-
-ModelSettings.prototype.getTitle = function() {
-  let result = "missing_title"
-  if (this.isValidLocaleProperty(this.locale, 'title')) {
-    result = this.msgCatalog[this.locale].title
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'title')) {
-    result = this.msgCatalog[this.dfltLocale].title
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getTitle() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getSelectLang = function() {
-  let result = "missing_selectLang"
-  if (this.isValidLocaleProperty(this.locale, 'selectLang')) {
-    result = this.msgCatalog[this.locale].selectLang
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'selectLang')) {
-    result = this.msgCatalog[this.dfltLocale].selectLang
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getSelectLang() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getSelectLangTooltip = function() {
-  let result = "missing_selectLangTooltip"
-  if (this.isValidLocaleProperty(this.locale, 'selectLangTooltip')) {
-    result = this.msgCatalog[this.locale].selectLangTooltip
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'selectLangTooltip')) {
-    result = this.msgCatalog[this.dfltLocale].selectLangTooltip
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getSelectLangTooltip() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getUseLang = function() {
-  let result = "missing_useLang"
-  if (this.isValidLocaleProperty(this.locale, 'useLang')) {
-    result = this.msgCatalog[this.locale].useLang
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'useLang')) {
-    result = this.msgCatalog[this.dfltLocale].useLang
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getUseLang() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getSelectCountry = function() {
-  let result = "missing_selectCountry"
-  if (this.isValidLocaleProperty(this.locale, 'selectCountry')) {
-    result = this.msgCatalog[this.locale].selectCountry
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'selectCountry')) {
-    result = this.msgCatalog[this.dfltLocale].selectCountry
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getSelectCountry() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getShowCities = function() {
-  let result = "missing_showCities"
-  if (this.isValidLocaleProperty(this.locale, 'showCities')) {
-    result = this.msgCatalog[this.locale].showCities
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'showCities')) {
-    result = this.msgCatalog[this.dfltLocale].showCities
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getShowCities() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getSelectQuantity = function() {
-  let result = "missing_selectQuantity"
-  if (this.isValidLocaleProperty(this.locale, 'selectQuantity')) {
-    result = this.msgCatalog[this.locale].selectQuantity
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'selectQuantity')) {
-    result = this.msgCatalog[this.dfltLocale].selectQuantity
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getSelectQuantity() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getShowTopCitiesBegin = function() {
-  let result = "missing_showTop"
-  if (this.isValidLocaleProperty(this.locale, 'showTop')) {
-    result = this.msgCatalog[this.locale].showTop
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'showTop')) {
-    result = this.msgCatalog[this.dfltLocale].showTop
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getShowTopCities() Error ", result)
-  }
-  return result
-}
-
-ModelSettings.prototype.getShowTopCitiesEnd = function() {
-  let result = "missing_showTopCities"
-  if (this.isValidLocaleProperty(this.locale, 'showTopCities')) {
-    result = this.msgCatalog[this.locale].showTopCities
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'showTopCities')) {
-    result = this.msgCatalog[this.dfltLocale].showTopCities
-  } else {
-    result = (this.locale) ? result + "_" + this.locale : result
-    console.log("ModelSettings:getShowTopCitiesCities() Error ", result)
-  }
-  return result
 }
 
 //----------------------------------------------------------------------------------

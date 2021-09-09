@@ -11,10 +11,10 @@ View.prototype.createLandingBody = function() {
     this.resetBody()
   }
 
-  let title = this.getAppName()
+  let title = this.t('AppName')
   let header = this.createHeader(title)
   let menuDrawer = this.createMenuDrawer()
-  let main = this.createLandingMain(this.getSlogan(), this.getBlurb().split("\n"))
+  let main = this.createLandingMain(this.t('AppSlogan'), this.t('AppBlurb').split("\n"))
   let footer = this.createFooter()
 
   bodyDiv.appendChild(header)

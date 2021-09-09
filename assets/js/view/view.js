@@ -44,25 +44,17 @@ function View(
   hasPersistedSettings,
   hasPersistedFAB,
   hasPersistedPriorities,
-  getLocale,
-  githubUrl,
-  getMaxResults,
-  getMaxResultsOptions,
+  t,
   getLangName,
   getLangOptionsMap,
-  getCountryCode,
   getCountryName,
   getCountryOptionsMap,
   getCurrency,
-  getSettingsTitle,
-  getSelectLang,
-  getSelectLangTooltip,
-  getUseLang,
-  getSelectCountry,
-  getShowCities,
-  getSelectQuantity,
-  getShowTopCitiesBegin,
-  getShowTopCitiesEnd,
+  githubUrl,
+  getMaxResults,
+  getMaxResultsOptions,
+  getLocale,
+  getCountryCode,
   getAffordabilityValue,
   getHappinessValue,
   getPoliticsValue,
@@ -72,68 +64,8 @@ function View(
   getJobSearchEnabled,
   getNormalizedPriorities,
   hasNoPriorities,
-  getPrioritiesTitle,
-  getPrioritiesHappinessTitle,
-  getPrioritiesHappinessTooltip,
-  getPrioritiesPoliticsTitle,
-  getPrioritiesPoliticsTooltip,
-  getPrioritiesAffordabilityTitle,
-  getPrioritiesAffordabilityTooltip,
-  getPrioritiesJobSearchTitle,
-  getPrioritiesJobSearchTooltip,
-  getPrioritiesJobSearchPlaceholder,
-  getAppName,
-  getSlogan,
-  getBlurb,
-  getCopyrightDate,
-  getMenuTitle,
-  getMenuView,
-  getMenuViewIntro,
-  getMenuViewPriorities,
-  getMenuViewBestBets,
-  getMenuViewBlog,
-  getMenuPriorities,
-  getMenuPrioritiesEdit,
-  getMenuPrioritiesClear,
-  getMenuPrioritiesDefault,
-  getMenuPrioritiesHappiness,
-  getMenuPrioritiesPolitics,
-  getMenuPrioritiesCost,
-  getMenuSettings,
-  getMenuSettingsEdit,
-  getMenuSettingsClear,
-  getMenuSettingsDefault,
-  getMenuSettingsUseLang,
-  getMenuSettingsShowCities,
-  getMenuSettingsShowTop,
-  getMenuSettingsHelp,
   getActiveDataView,
   getRankedList,
-  getResultsTitle,
-  getNoResults,
-  getNoResultsImg,
-  getNoResultsAdvice,
-  getNoMapView,
-  getMissingCityImg,
-  getMonetizeHere,
-  getMonetizeLearnMore,
-  getMonetizeImg,
-  getPhotoLabelHappiness,
-  getPhotoLabelAffordability,
-  getPhotoLabelPolitics,
-  getChartTitle,
-  getChartLabelCombined,
-  getChartLabelHappiness,
-  getChartLabelAffordability,
-  getChartLabelPolitics,
-  getListLabelHappiness,
-  getListLabelAffordability,
-  getListLabelPolitics,
-  getTableLabelRank,
-  getTableLabelCity,
-  getTableLabelHappiness,
-  getTableLabelAffordability,
-  getTableLabelPolitics,
   checkInternet,
   getOnlineStatus
 ) {
@@ -145,24 +77,19 @@ function View(
   this.hasPersistedFAB = hasPersistedFAB
   this.hasPersistedPriorities = hasPersistedPriorities
 
+  // Bind to Translation (t9n) interface.
+  this.t = t
+  this.getLangName = getLangName
+  this.getLangOptionsMap = getLangOptionsMap
+  this.getCountryName = getCountryName
+  this.getCountryOptionsMap = getCountryOptionsMap
+  this.getCurrency = getCurrency
+
   // Bind to SettingsModel interface.
   this.getMaxResults = getMaxResults
   this.getMaxResultsOptions = getMaxResultsOptions
   this.getLocale = getLocale
-  this.getLangName = getLangName
-  this.getLangOptionsMap = getLangOptionsMap
   this.getCountryCode = getCountryCode
-  this.getCountryName = getCountryName
-  this.getCountryOptionsMap = getCountryOptionsMap
-  this.getSettingsTitle = getSettingsTitle
-  this.getSelectLang = getSelectLang
-  this.getSelectLangTooltip = getSelectLangTooltip
-  this.getUseLang = getUseLang
-  this.getSelectCountry = getSelectCountry
-  this.getShowCities = getShowCities
-  this.getSelectQuantity = getSelectQuantity
-  this.getShowTopCitiesBegin = getShowTopCitiesBegin
-  this.getShowTopCitiesEnd = getShowTopCitiesEnd
 
   // Bind to PriorityModel interface.
   this.getAffordabilityValue = getAffordabilityValue
@@ -174,77 +101,12 @@ function View(
   this.getJobSearchEnabled = getJobSearchEnabled
   this.getNormalizedPriorities = getNormalizedPriorities
   this.hasNoPriorities = hasNoPriorities
-  this.getPrioritiesTitle = getPrioritiesTitle
-  this.getPrioritiesHappinessTitle = getPrioritiesHappinessTitle
-  this.getPrioritiesHappinessTooltip = getPrioritiesHappinessTooltip
-  this.getPrioritiesPoliticsTitle = getPrioritiesPoliticsTitle
-  this.getPrioritiesPoliticsTooltip = getPrioritiesPoliticsTooltip
-  this.getPrioritiesAffordabilityTitle = getPrioritiesAffordabilityTitle
-  this.getPrioritiesAffordabilityTooltip = getPrioritiesAffordabilityTooltip
-  this.getPrioritiesJobSearchTitle = getPrioritiesJobSearchTitle
-  this.getPrioritiesJobSearchTooltip = getPrioritiesJobSearchTooltip
-  this.getPrioritiesJobSearchPlaceholder = getPrioritiesJobSearchPlaceholder
 
-  // Bind to LandingModel interface.
-  this.getAppName = getAppName
-  this.getSlogan = getSlogan
-  this.getBlurb = getBlurb
-  this.getCopyrightDate = getCopyrightDate
-
-  // Bind to MenuModel interface.
-  this.getMenuTitle = getMenuTitle
-  this.getMenuView = getMenuView
-  this.getMenuViewIntro = getMenuViewIntro
-  this.getMenuViewPriorities = getMenuViewPriorities
-  this.getMenuViewBestBets = getMenuViewBestBets
-  this.getMenuViewBlog = getMenuViewBlog
-  this.getMenuPriorities = getMenuPriorities
-  this.getMenuPrioritiesEdit = getMenuPrioritiesEdit
-  this.getMenuPrioritiesClear = getMenuPrioritiesClear
-  this.getMenuPrioritiesDefault = getMenuPrioritiesDefault
-  this.getMenuPrioritiesHappiness = getMenuPrioritiesHappiness
-  this.getMenuPrioritiesPolitics = getMenuPrioritiesPolitics
-  this.getMenuPrioritiesCost = getMenuPrioritiesCost
-  this.getMenuSettings = getMenuSettings
-  this.getMenuSettingsEdit = getMenuSettingsEdit
-  this.getMenuSettingsClear = getMenuSettingsClear
-  this.getMenuSettingsDefault = getMenuSettingsDefault
-  this.getMenuSettingsUseLang = getMenuSettingsUseLang
-  this.getMenuSettingsShowCities = getMenuSettingsShowCities
-  this.getMenuSettingsShowTop = getMenuSettingsShowTop
-  this.getMenuSettingsHelp = getMenuSettingsHelp
-
-  // Bind to MenuResults model
+  // Bind to ResultsModel interface.
   this.getActiveDataView = getActiveDataView
   this.getRankedList = getRankedList
-  this.getResultsTitle = getResultsTitle
-  this.getNoResults = getNoResults
-  this.getNoResultsImg = getNoResultsImg
-  this.getNoResultsAdvice = getNoResultsAdvice
-  this.getNoMapView = getNoMapView
-  this.getMissingCityImg = getMissingCityImg
-  this.getMonetizeHere = getMonetizeHere
-  this.getMonetizeLearnMore = getMonetizeLearnMore
-  this.getMonetizeImg = getMonetizeImg
-  this.getPhotoLabelHappiness = getPhotoLabelHappiness
-  this.getPhotoLabelAffordability = getPhotoLabelAffordability
-  this.getPhotoLabelPolitics = getPhotoLabelPolitics
-  this.getChartTitle = getChartTitle
-  this.getChartLabelCombined = getChartLabelCombined
-  this.getChartLabelHappiness = getChartLabelHappiness
-  this.getChartLabelAffordability = getChartLabelAffordability
-  this.getChartLabelPolitics = getChartLabelPolitics
-  this.getListLabelHappiness = getListLabelHappiness
-  this.getListLabelAffordability = getListLabelAffordability
-  this.getListLabelPolitics = getListLabelPolitics
-  this.getTableLabelRank = getTableLabelRank
-  this.getTableLabelCity = getTableLabelCity
-  this.getTableLabelHappiness = getTableLabelHappiness
-  this.getTableLabelAffordability = getTableLabelAffordability
-  this.getTableLabelPolitics = getTableLabelPolitics
 
-  // Bind to network interface
-
+  // Bind to network interface.
   this.checkInternet = checkInternet
   this.getOnlineStatus = getOnlineStatus
 
@@ -390,8 +252,8 @@ View.prototype.getIconFromAsciiIcon = function(asciiIcon) {
 }
 
 View.prototype.createFooter = function() {
-  let appName = this.getAppName()
-  let copyrightDate = this.getCopyrightDate()
+  let appName = this.t('AppName')
+  let copyrightDate = this.t('AppCopyrightDate')
   let fabHTML = this.createFAB()
 
   f = document.createElement("footer")

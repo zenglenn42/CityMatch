@@ -23,7 +23,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   // MENU header
   //------------------------------------------------------------
 
-  let title = (!menuTitle) ? this.getMenuTitle() : menuTitle
+  let title = (!menuTitle) ? this.t('MenuTitle') : menuTitle
   let md = document.getElementById("menu-drawer")
 
   if (md) {
@@ -55,7 +55,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   viewMenuButtonNode.setAttribute("style", "text-align:left")
   viewMenuButtonNode.classList.add("mdl-button")
   viewMenuButtonNode.classList.add("mdl-js-button")
-  let viewText = this.getMenuView()
+  let viewText = this.t('MenuView')
   viewMenuButtonNode.innerHTML = `<i class='material-icons header-icons'>visibility</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>${viewText} ...</span>`
   md.appendChild(viewMenuButtonNode)
   let viewMenuHtml = "ul"
@@ -64,10 +64,10 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   viewMenuNode.classList.add("mdl-js-menu")
   viewMenuNode.classList.add("mdl-menu--bottom-right")
   viewMenuNode.setAttribute("for", "viewMenu")
-  let viewIntro = this.getMenuViewIntro()
-  let viewPriorities = this.getMenuViewPriorities()
-  let viewBestBets = this.getMenuViewBestBets()
-  let viewBlog = this.getMenuViewBlog()
+  let viewIntro = this.t('MenuViewIntro')
+  let viewPriorities = this.t('MenuViewPriorities')
+  let viewBestBets = this.t('MenuViewBestBets')
+  let viewBlog = this.t('MenuViewBlog')
 
   viewMenuNode.innerHTML  = `<li id='view_landing_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>emoji_people</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewIntro}</span></li>`
   viewMenuNode.innerHTML += `<li id='view_priorities_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewPriorities}</span></li>`
@@ -86,7 +86,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   prioritiesMenuButtonNode.setAttribute("style", "text-align:left")
   prioritiesMenuButtonNode.classList.add("mdl-button")
   prioritiesMenuButtonNode.classList.add("mdl-js-button")
-  let prioritiesText = this.getMenuPriorities() // TODO
+  let prioritiesText = this.t('MenuPriorities')
   prioritiesMenuButtonNode.innerHTML = `<i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>${prioritiesText} ...</span>`
   md.appendChild(prioritiesMenuButtonNode)
   let prioritiesMenuHtml = "ul"
@@ -114,9 +114,9 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   prioritiesMenuNode.innerHTML = ""
 
-  let prioritiesEdit = this.getMenuPrioritiesEdit()
-  let prioritiesClear = this.getMenuPrioritiesClear()
-  let prioritiesDefault = this.getMenuPrioritiesDefault()
+  let prioritiesEdit = this.t('MenuPrioritiesEdit')
+  let prioritiesClear = this.t('MenuPrioritiesClear')
+  let prioritiesDefault = this.t('MenuPrioritiesDefault')
 
   prioritiesMenuNode.innerHTML += `<li id='priorities_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesEdit} ...</span></li>`
 
@@ -139,7 +139,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   settingsMenuButtonNode.setAttribute("style", "text-align:left")
   settingsMenuButtonNode.classList.add("mdl-button")
   settingsMenuButtonNode.classList.add("mdl-js-button")
-  let settingsText = this.getMenuSettings()
+  let settingsText = this.t('MenuSettings')
   settingsMenuButtonNode.innerHTML = `<i class='material-icons header-icons'>settings</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>${settingsText} ...</span>`
   md.appendChild(settingsMenuButtonNode)
   let settingsMenuHtml = "ul"
@@ -155,15 +155,15 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-js-menu")
   settingsMenuNode.classList.add("mdl-menu--bottom-right")
   settingsMenuNode.setAttribute("for", "settingsMenu")
-  let maxResultsString = this.getMenuSettingsShowTop(this.getMaxResults()) 
-  let langString = this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))
-  let countryString = this.getMenuSettingsShowCities(this.getCountryName(this.getCountryCode()))
+  let maxResultsString = this.t('MenuShowTop', this.getMaxResults()) 
+  let langString = this.t('MenuUseLang', this.getLangName(this.getLocale()))
+  let countryString = this.t('MenuShowCities', this.getCountryName(this.getCountryCode()))
 
   settingsMenuNode.innerHTML = ""
 
-  let settingsEdit = this.getMenuSettingsEdit()
-  let settingsClear = this.getMenuSettingsClear()
-  let settingsDefault = this.getMenuSettingsDefault()
+  let settingsEdit = this.t('MenuSettingsEdit')
+  let settingsClear = this.t('MenuSettingsClear')
+  let settingsDefault = this.t('MenuSettingsDefault')
 
   settingsMenuNode.innerHTML += `<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsEdit} ...</span></li>`
 
@@ -187,7 +187,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   helpMenuButtonNode.setAttribute("disabled", "disabled")
   helpMenuButtonNode.classList.add("mdl-button")
   helpMenuButtonNode.classList.add("mdl-js-button")
-  let helpText = this.getMenuSettingsHelp()
+  let helpText = this.t('MenuHelp')
   helpMenuButtonNode.innerHTML = `<i class='material-icons header-icons'>help</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>${helpText}</span>`
   md.appendChild(helpMenuButtonNode)
 
@@ -216,7 +216,7 @@ View.prototype.getMenuPrioritiesFormattedHappiness = function() {
   }
   let emoji = `<i class="far ${emojiIcon} fa-sm black-text pr-3" aria-hidden="true"></i>`
   let happinessFormattedString = `&nbsp;${emoji}&nbsp;${happinessValue}` 
-  let happinessString = this.getMenuPrioritiesHappiness(happinessFormattedString)
+  let happinessString = this.t('MenuPrioritiesHappiness', happinessFormattedString)
   return happinessString
 }
 
@@ -230,7 +230,7 @@ View.prototype.getMenuPrioritiesFormattedPolitics = function() {
   let donkey = '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
   let elephant = '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
   let politicsFormattedString = `&nbsp;${donkey}&nbsp;${politicsValue.dem16_frac}%&nbsp;&nbsp; ${elephant}&nbsp;${politicsValue.rep16_frac}%`
-  let politicsString = this.getMenuPrioritiesPolitics(politicsFormattedString)
+  let politicsString = this.t('MenuPrioritiesPolitics', politicsFormattedString)
   return politicsString
 }
 
@@ -241,7 +241,7 @@ View.prototype.getMenuPrioritiesFormattedPoliticsEn = function() {
 
 View.prototype.getMenuPrioritiesFormattedCost = function() {
   let house = '<i class="fas fa-home fa-sm black-text pr-3" aria-hidden="true"></i>'
-  let costString = this.getMenuPrioritiesCost(`&nbsp;${house}&nbsp;${this.formatter.format(this.getAffordabilityValue())}`)
+  let costString = this.t('MenuPrioritiesCost', `&nbsp;${house}&nbsp;${this.formatter.format(this.getAffordabilityValue())}`)
   return costString
 }
 
