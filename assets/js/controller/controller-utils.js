@@ -163,8 +163,8 @@ Controller.prototype.ManagedEventHandlers = (function() {
 //----------------------------------------------------------------------------------
 
 Controller.prototype.checkInternet = function(
-          checkUrl = "",
           callback = this.setOnlineStatus,
+          checkUrl = "",
           runAsynchronously = false) {
 
   let avoidCache = Math.round(Math.random() * 10000)

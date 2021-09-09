@@ -3,8 +3,7 @@
 //
 // This class instantiates the models and view associated with this simple,
 // single-user, front-end web app.  All the code runs on the client after initial
-// download from the server.  Persistence of state is intended to happen on the 
-// client (see TODO's below).
+// download from the server.
 //
 // State is managed within model objects and read or written via getter and 
 // setter methods.  The business logic of ranking cities based upon user priorities
@@ -32,9 +31,12 @@ function Controller(bodyDivId, locale = "en-US") {
   //
   // Check inet status early since this impacts how we interpret
   // persisted settings that drive the model.
+  //
+  // TODO: Wrapper inet status check in a singleton module.
 
   this.isOnline = 'unknown'
-  this.checkInternet("", this.setOnlineStatus.bind(this))
+  let setStatusCallback = this.setOnlineStatus.bind(this)
+  this.checkInternet(setStatusCallback)
 
   this.cache = new LocalStorage()
 
@@ -53,10 +55,9 @@ function Controller(bodyDivId, locale = "en-US") {
   // settings object.
   //
   // So we have something of a circular dependency here between Settings and Translation
-  // view-models.  One way out of this circumstance is to treat these t9n methods
-  // as 'class' methods, which avoids the need to instantiate a t9n object.  Since
-  // I'm not using ES6 class semantics and the static key word, I simply reference the
-  // methods out of the prototype of ModelT9n.
+  // view-models.  We get out of the mess by treating the t9n methods as class methods,
+  // avoding the need to instatiate a t9n object.  Since I'm not using ES6 class semantics 
+  // and the static key word, I simply reference the methods out of the prototype of ModelT9n.
 
   let isValidLocale = ModelT9n.prototype.isValidLocale
   let isValidLocaleProperty = ModelT9n.prototype.isValidLocaleProperty
