@@ -89,7 +89,7 @@ View.prototype.createResultsMain = function() {
     m.appendChild(child)
     let noPrioritiesParams = {
       img: this.t('NoResultsImg'),
-      titleText: this.getNoResults(),
+      titleText: this.t('NoResults'),
       supportingText: this.t('NoResultsAdvice')
     }
     let c = this.createResultsNoPrioritiesCard(noPrioritiesParams)
