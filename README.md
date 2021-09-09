@@ -103,7 +103,7 @@ Co-branding and demographic-driven advertising opportunities exist that would ap
 ![alt](docs/img/venue.jpg)
 Photo by Suvan Chowdhury
 
-The venue is busy. It's Saturday night which means the music could be rock, soul funk, tribute or a mix. Tonight it's rock.
+The venue is busy. It's Saturday night which means the music could be rock, soul funk, tribute or a mix. Tonight, it's rock.
 
 It's a varied demographic, mostly middle aged married couples getting their groove on with a mix of younger folk watching and enjoying the sunset.
 
@@ -596,7 +596,7 @@ Something's not quite right with the pattern.  Something's [unfulfilled](https:/
 It takes a while to distill it down to something conscious and actionable.
 MVC, M.. V.. C.., MV -- wait. I have no V! The view all got sucked out of the html and into my controller, my C, when I made the html-generation dynamic.
 
-Maybe that's the way of things, but it just doesn't sit right with me. I want this to be unmuddled, to clearly see important dependencies and relationships in the code relative to this abstraction I hold in my mind. Besides, my controller module is pretty big. While I'm at it, I'm gonna move that big honkin' piece of static model data into it's own object and declutter the model a bit. Maybe sweep up some hardcodes while I'm at it.
+Maybe that's the way of things, but it just doesn't sit right with me. I want this to be unmuddled, to clearly see important dependencies and relationships in the code relative to this abstraction I hold in my mind. Besides, my controller module is pretty big. While I'm at it, I'm gonna move that big honkin' piece of static model data into its own object and declutter the model a bit. Maybe sweep up some hardcodes while I'm at it.
 
 So yeah, another round of code refactoring yields this [fix](https://github.com/zenglenn42/CityMatch/commit/a73501315c1438e4eb5ab7012086eec368b502ce).
 
@@ -1002,7 +1002,7 @@ The view gets similar treatment:
 
 The methods herein read state from the view-models and render the view accordingly.
 
-Eventually, I segregate newly written persistence code into it's own area since storage is somewhat orthogonal to classic MVC as I understand it:
+Eventually, I segregate newly written persistence code into its own area since storage is somewhat orthogonal to classic MVC as I understand it:
 
 * storage/local-storage.js
 
@@ -1374,7 +1374,7 @@ The [merge](https://github.com/zenglenn42/CityMatch/blob/724a502ad2b7fec4e061732
   }
 ```
 
-In a scaled-up effort, it might make sense to split out each translated catalog into it's own file so new languages could be added without contention for the single file currently holding all catalogs.  Plus namespacing could be leveraged to prevent collision of symbolic names for strings.  
+In a scaled-up effort, it might make sense to split out each translated catalog into its own file so new languages could be added without contention for the single file currently holding all catalogs.  Plus namespacing could be leveraged to prevent collision of symbolic names for strings.  
 
 But the app is relatively small and it's just me at the helm so I can't really justify the effort to split that out just now.  Really wish JS had enumerated types, though.
 
@@ -1451,7 +1451,7 @@ In my case, the new design triples the number of city rows visible in landscape 
 
 ### [Lessons learned](#contents)
 
-* Mobile is definitely it's own little universe.
+* Mobile is definitely its own little universe.
 
 I feel like I've been through a rite of passage that ultimately strengthens my ability to appraise and assess ... and knock down some of those unknown unknowns.
 
