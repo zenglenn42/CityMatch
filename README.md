@@ -1351,7 +1351,7 @@ With this [commit](https://github.com/zenglenn42/CityMatch/commit/724a502ad2b7fe
 ```
 
 This allows me to replace all the ```getAppName(), getAppSlogan(), ... getBlah()``` methods,
-sprinkled about various view-models, with a single _translation_ method, ```ModelT9n.t()```.
+sprinkled about various view-models, with a single _translation_ method, [```ModelT9n.t()```](https://github.com/zenglenn42/CityMatch/blob/a267233c03f8806bf568df5fc7112609899f3065/assets/js/models/model-t9n.js#L577).
 
 Knowledge of the current locale is established by a getter from the Settings view-model, passed into the T9n's model constructor and invoked with each translation request.  Some day, the T9n model will simply be an observer of locale state and we'll dispense with the synchronous locale checks.
 
