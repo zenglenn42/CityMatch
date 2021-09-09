@@ -1350,8 +1350,8 @@ With this [commit](https://github.com/zenglenn42/CityMatch/commit/724a502ad2b7fe
   let title = this.t('AppName') // Return translated string associated with 'AppName'.
 ```
 
-This allows me to replace all the getAppName(), getAppSlogan(), ... getBlah() methods,
-sprinkled about various view-models, with a single _translation_ method, ModelT9n.t().
+This allows me to replace all the ```getAppName(), getAppSlogan(), ... getBlah()``` methods,
+sprinkled about various view-models, with a single _translation_ method, ```ModelT9n.t()```.
 
 Knowledge of the current locale is established by a getter from the Settings view-model, passed into the T9n's model constructor and invoked with each translation request.  Some day, the T9n model will simply be an observer of locale state and we'll dispense with the synchronous locale checks.
 
