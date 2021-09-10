@@ -1331,7 +1331,7 @@ I sprinkle this around liberally and the parasitic recursion stops.  Until I get
 
 ### [T9n Refactor](#contents)
 
-Anytime you can refactor 2000 lines of code down to under 1000 with no loss of functionality and arguably better maintainability, it's is a good day.  Less code to maintain, less code to send down the wire.
+Anytime you can refactor 2000 lines of code down to under 1000 with no loss of functionality and arguably better maintainability, it's a good day.  Less code to maintain, less code to send down the wire.
 
 ![alt](docs/img/t9n-refactor.png)
 
