@@ -64,13 +64,13 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
       name: "English",
       enName: "English",
       flag: "🇺🇸",   // Flag emoji from: https://emojipedia.org/flags/
-      supported: true
+      supported: true // May be use by view disable a selection list option.
     },
     "es-ES": {
       name: "Español",
       enName: "Spanish",
       flag: "🇪🇸",
-      supported: true  // May be used by view to gray out a selection list option.
+      supported: true
     },
     "hi-IN": {
       name: "हिंदी",
@@ -82,7 +82,13 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
       name: "普通话",
       enName: "Mandarin",
       flag: "🇨🇳",
-      supported: true  // May be used by view to gray out a selection list option.
+      supported: true
+    },
+    "fi-FI": {
+      name: "Suomalainen",
+      enName: "Finnish",
+      flag: "🇫🇮",
+      supported: true
     }
   }
 
@@ -163,7 +169,17 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
 
       "AppBlurb": "正在考虑搬家但不确定哪个城市是您的最佳选择？\n" +
              "分享您的优先事项，我们将提供一些可供考虑的选项。",
-    }
+    },
+    "fi-FI": {
+      "AppName": "Sopiva Kaupunki",
+      "AppSlogan": "Etsi sopiva kaupunki",
+
+      // NB: Strive to keep blurb text short, ideally not more than 2 sentences
+      //     with each sentence < 80 characters.
+
+      "AppBlurb": "Harkitsetko muuttoa, mutta et ole varma, mikä kaupunki on paras vaihtoehto?\n" +
+             "Jaa prioriteettisi, niin tarjoamme sinulle vaihtoehtoja.",
+    },
   }
 
   //--------------------------------------//
@@ -235,6 +251,23 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
       JobSearchTitle: "就业前景",
       JobSearchTooltip: "您必须先登录才能使用此功能。",
       JobSearchPlaceholder: "职称（已禁用）"
+    },
+    "fi-FI": {
+      PrioritiesSubtitle: "Jaa prioriteettisi ...",
+      HappinessTitle: "Kansalainen onni",
+      HappinessTooltip: "Säädä tätä prioriteettia alla olevan liukusäätimen avulla. " +
+                        "Perustuu WalletHubin vuonna 2019 tekemään tutkimukseen eri " +
+                        "ulottuvuuksista, mukaan lukien yleinen hyvinvointi, työllisyys ja yhteisö Yhdysvalloissa.",
+      PoliticsTitle: "Poliittiset Arvot",
+      PoliticsTooltip: "Käytä alla olevaa liukusäädintä säätääksesi haluttujen " +
+                       "poliittisten arvojen ensisijaisuutta. Perustuu opendatasoftin " +
+                       "julkaisemiin maakuntatason 2016 Yhdysvaltain presidentinvaalitietoihin.",
+      AffordabilityTitle: "Elinkustannukset",
+      AffordabilityTooltip: "Määritä haluttu suhteellinen elinkustannus alla olevan liukusäätimen avulla. " +
+                            "Perustuu Yhdysvaltain väestönlaskennan julkaisemaan asunnon keskihintaan vuonna 2017 maakunnan mukaan.",
+      JobSearchTitle: "Työnäkymät",
+      JobSearchTooltip: "Sinun on kirjauduttava sisään käyttääksesi tätä ominaisuutta.",
+      JobSearchPlaceholder: "Työnimike (poistettu käytöstä)"
     },
   }
 
@@ -343,7 +376,31 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
       TableLabelHappiness: "幸福",
       TableLabelAffordability: "代价",
       TableLabelPolitics: "政治"
-    }
+    },
+    "fi-FI": {
+      ResultsSubtitle: "Parhaat vaihtoehdot ...",
+      NoResults: "Ei tuloksia.",
+      NoResultsAdvice: "Palaa takaisin ja määritä yksi tai useampi prioriteetti.",
+      NoMapView: "Karttanäkymä vaatii internetin. Lataa uudelleen, kun olet muodostanut yhteyden uudelleen.",
+      MonetizeHere: "Ansaitse rahaa täällä €",
+      MonetizeLearnMore: "Lue lisää",
+      PhotoLabelHappiness: "Kansalainen Onni",
+      PhotoLabelAffordability: "Mediaani asunnon hinta",
+      PhotoLabelPolitics: "",
+      ChartTitle: "Läheisyys prioriteetteihisi (0 = ihanteellinen)",
+      ChartLabelCombined: "Komposiitti",
+      ChartLabelHappiness: "Iloinen",
+      ChartLabelAffordability: "Elinkustannukset",
+      ChartLabelPolitics: "Puoluepolitiikka",
+      ListLabelHappiness: "Kansalainen Onni",
+      ListLabelAffordability: "Mediaani asunnon hinta",
+      ListLabelPolitics: "",
+      TableLabelRank: "#",
+      TableLabelCity: "Kaupunki",
+      TableLabelHappiness: "Iloinen",
+      TableLabelAffordability: "Elinkustannukset",
+      TableLabelPolitics: "Puoluepolitiikka"
+    },
   }
 
   //--------------------------------------//
@@ -392,6 +449,17 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
       ShowTopCitiesBegin: "列举",
       ShowTopCitiesEnd: "城市"
     },
+    "fi-FI": {
+      SettingsSubtitle: "Muokkaa sovellusasetus ...",
+      SelectLang: "Valitse kieli",
+      SelectLangTooltip: "Valitse kieli",
+      UseLang: "Käyttä",
+      SelectCountry: "Valitse maa",
+      ShowCities: "Etsi kaupunkeja",
+      SelectQuantity: "Valitse määrä",
+      ShowTopCitiesBegin: "Näytä",
+      ShowTopCitiesEnd: "parasta kaupunkia"
+    }
   }
 
   //--------------------------------------//
@@ -490,6 +558,29 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
       MenuShowCities: (val) => {return `从这里显示城市 ${val}`},
       MenuShowTop: (val) => {return `显示最好的 ${val} 个城市`},
       MenuHelp: "协助"
+    },
+    "fi-FI": {
+      MenuTitle: "Valikko",
+      MenuView: "Näytä",
+      MenuViewIntro: "1. Johdanto",
+      MenuViewPriorities: "2. Omat mieltymykset",
+      MenuViewBestBets: "3. Parhaat vaihtoehdot",
+      MenuViewBlog: "Blogi",
+      MenuPriorities: "Prioriteettisi",
+      MenuPrioritiesEdit: "Muuttaa",
+      MenuPrioritiesClear: "Tyhjennä tallennetut prioriteetit",
+      MenuPrioritiesDefault: "Palauta oletusarvot",
+      MenuPrioritiesHappiness: (val) => {return `Kansalainen Onni: ${val}`},
+      MenuPrioritiesPolitics: (val) => {return `Puoluepolitiikka: ${val}`},
+      MenuPrioritiesCost: (val) => {return `Elinkustannukset: ${val}`},
+      MenuSettings: "Sovellusasetus",
+      MenuSettingsEdit: "Muuttaa",
+      MenuSettingsClear: "Tyhjennä tallennetut asetukset",
+      MenuSettingsDefault: "Palauta oletusarvot",
+      MenuUseLang: (val) => {return `Käytä ${val}`},
+      MenuShowCities: (val) => {return `Etsi kaupunkeja ${val}`},
+      MenuShowTop: (val) => {return `Näytä ${val} parasta kaupunkia`},
+      MenuHelp: "Auta"
     }
   }
 
@@ -504,7 +595,7 @@ function ModelT9n(getLocale = () => {return "en-US"}, dfltLocale = "en-US")  {
   this.msgCatalog = this.mergeCatalogs(this.supportedLocales, this.supportedCatalogs)
 }
 
-ModelT9n.prototype.supportedLocales = ["common", "en-US", "es-ES", "hi-IN", "zh-CN"]
+ModelT9n.prototype.supportedLocales = ["common", "en-US", "es-ES", "hi-IN", "zh-CN", "fi-FI"]
 ModelT9n.prototype.supportedCountryCodes = ["US"]
 
 //----------------------------------------------------------------------------------
