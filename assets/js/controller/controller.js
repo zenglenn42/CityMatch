@@ -24,48 +24,18 @@
 
 function Controller(bodyDivId, locale = "en-US") {
 
-  // Get network status at object creation-time.
-  //
-  // We may want to set this up on an interval, but for now, we just check at
-  // a few significant junctures in the code-flow.
-  //
-  // Check inet status early since this impacts how we interpret
-  // persisted settings that drive the model.
-  //
-  // TODO: Wrapper inet status check in a singleton module.
+  this.networkConnection = this.ManageNetworkConnection.getSingleton()
+  this.networkConnection.checkInternet()
 
-  this.isOnline = 'unknown'
-  let setStatusCallback = this.setOnlineStatus.bind(this)
-  this.checkInternet(setStatusCallback)
-
-  this.cache = new LocalStorage()
-
-  // Instantiate domain model.
-
-  this.cities = new ModelCities()
-
-  // Instantiate view models.
-
-  // The following 3 methods, needed by the Settings view-model constructor,
-  // function as class methods from the translation model (t9n) which we
-  // haven't instantiated yet.
-  //
-  // We can't instatiate the t9n object prior because /that/ constructor has
-  // a dependency upon the getLocale getter which comes from an instantiated
-  // settings object.
-  //
-  // So we have something of a circular dependency here between Settings and Translation
-  // view-models.  We get out of the mess by treating the t9n methods as class methods,
-  // avoding the need to instatiate a t9n object.  Since I'm not using ES6 class semantics 
-  // and the static key word, I simply reference the methods out of the prototype of ModelT9n.
+  this.cache = new LocalStorage()  // Persisted state from last session.
+  this.cities = new ModelCities()  // Domain model with business logic.
 
   let isValidLocale = ModelT9n.prototype.isValidLocale
   let isValidLocaleProperty = ModelT9n.prototype.isValidLocaleProperty
   let isValidCountryCode = ModelT9n.prototype.isValidCountryCode
-
   let maxResults = 10
   let countryCode = "US"
-  this.settings = new ModelSettings(
+  this.settings = new ModelSettings(          // Settings view-model
       locale,
       isValidLocale,
       this.cities.getNumCities(),
@@ -74,17 +44,14 @@ function Controller(bodyDivId, locale = "en-US") {
       isValidCountryCode)
 
   if (this.cache.hasSettings()) {
-    // Update current settings state from cached settings.
-
     let persistedSettings = this.cache.getSettings()
     this.settings.set(persistedSettings)
   }
   let getSettingsLocale = this.settings.getLocale.bind(this.settings)
 
-  // Instantiate translation (t9n) object.
-  this.t9n = new ModelT9n(getSettingsLocale)
+  this.t9n = new ModelT9n(getSettingsLocale)  // Multi-lang view-model
 
-  this.priorities = new ModelPriorities(
+  this.priorities = new ModelPriorities(      // User priorities view-model
     this.cities.getMidAffordabilityValue(),
     this.cities.getMidHappinessValue(),
     this.cities.getMidPoliticsValue(),
@@ -94,36 +61,32 @@ function Controller(bodyDivId, locale = "en-US") {
   )
   if (this.cache.hasPriorities()) {
     // Update current priorities state from cached settings.
-
     let persistedPriorities = this.cache.getPriorities()
     this.priorities.set(persistedPriorities)
   }
 
-  this.results = new ModelResults(
+  this.results = new ModelResults(            // Results view-model
     this.cities.isValidCityList,
     "photo-view"
   )
   if (this.cache.hasResults()) {
-    // Update results state from cached settings.
-
     // TODO: Enforce inet check before attempting to restore
     //       to possibly inet-down disabled view.
     let persistedResults = this.cache.getResults()
     this.results.set(persistedResults)
   }
 
-  this.FAB = new ModelFAB(getSettingsLocale, isValidLocaleProperty)
+  this.FAB = new ModelFAB(                    // Floating Action Button view-model
+        getSettingsLocale,
+        isValidLocaleProperty)
   if (this.cache.hasFAB()) {
-    // Update current fab state from cached settings.
-
     let persistedFAB = this.cache.getFAB()
     this.FAB.set(persistedFAB)
   }
 
-  this.delegatedHandlers = this.ManagedEventHandlers.getSingleton()
+  this.delegatedHandlers = this.ManageEventHandlers.getSingleton()
+  this.ManageOrientationChange()
 
-
-  // Instantiate view, passing in state getters from models.
   this.view = new View(
     bodyDivId,
     this.FAB,
@@ -166,12 +129,8 @@ function Controller(bodyDivId, locale = "en-US") {
     this.priorities.hasNoPriorities.bind(this.priorities),
     this.results.getActiveDataView.bind(this.results),
     this.results.getRankedList.bind(this.results),
-    this.checkInternet.bind(this),
-    this.getOnlineStatus.bind(this)
+    this.networkConnection
   )
 
-  // Avoid content clipping especially on iOS if device is rotated 90 deg.
-
-  this.ManageOrientationChange()
   this.view.render()
 }

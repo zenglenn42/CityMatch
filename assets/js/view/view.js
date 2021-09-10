@@ -66,8 +66,7 @@ function View(
   hasNoPriorities,
   getActiveDataView,
   getRankedList,
-  checkInternet,
-  getOnlineStatus
+  networkConnection
 ) {
 
   this.fabModel = fabModel
@@ -107,8 +106,8 @@ function View(
   this.getRankedList = getRankedList
 
   // Bind to network interface.
-  this.checkInternet = checkInternet
-  this.getOnlineStatus = getOnlineStatus
+  this.checkInternet = networkConnection.checkInternet
+  this.getOnlineStatus = networkConnection.getOnlineStatus
 
   this.bodyDivId = bodyDivId
   this.rankedList = []

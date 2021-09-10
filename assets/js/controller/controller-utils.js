@@ -60,7 +60,7 @@ Controller.prototype.ManageOrientationChange = function() {
 // TODO: Is there a more canonical way to do this in 2021? :-)
 //----------------------------------------------------------------------------------
 
-Controller.prototype.ManagedEventHandlers = (function() {
+Controller.prototype.ManageEventHandlers = (function() {
   var _singleton
 
   function createInstance() {
@@ -162,88 +162,108 @@ Controller.prototype.ManagedEventHandlers = (function() {
 // TODO: Consider moving this to an assets/js/network directory
 //----------------------------------------------------------------------------------
 
-Controller.prototype.checkInternet = function(
-          callback = this.setOnlineStatus,
-          checkUrl = "",
-          runAsynchronously = false) {
+Controller.prototype.ManageNetworkConnection = (function() {
+  let _singleton
+  let _isOnline = 'unknown'
 
-  let avoidCache = Math.round(Math.random() * 10000)
-  let dfltUrl = `https://i.imgur.com/7ofBNix.png?rand=${avoidCache}`  // smiley image
-  let rqstUrl = (checkUrl) ? checkUrl : dfltUrl
-
-  let xhr = new XMLHttpRequest()
-
-  let checkFileOnly = 'HEAD'
-  let httpMethod = checkFileOnly
-  let useCapture = false
-
-  if (typeof callback === 'function') {
-    xhr.addEventListener("readystatechange", handleResponse, useCapture)
-    if (runAsynchronously) {
-      xhr.timeout = 5000  // Cancel request if nothing back after 5 seconds.
+  function _setOnlineStatus(status) {
+    if (typeof status === 'boolean') {
+      _isOnline = status
+    } else {
+      _isOnline = 'unknown'
     }
-
-    // TODO: Fix It!
-    //
-    // My synchronous xhr.open is raising eyebrows (especially on firefox).
-    // Synchronous XMLHttpRequest on the main thread is deprecated because of
-    // its detrimental effects to the end user’s experience.
-    // For more help http://xhr.spec.whatwg.org/
-
-    xhr.open(httpMethod, rqstUrl, runAsynchronously)
-    try {
-      xhr.send()
-    } catch(err) {
-
-      // Typically we get here on network-related problems:
-      //  * wifi down
-      //  * ethernet cable unplugged
-
-      callback(false)
-    }
-  } else {
-    console.log(
-      '[Info] Controller.hasInternet() was not passed a valid callback.',
-      'Ignoring request.'
-    )
   }
 
-  // This callback actually is invoked several times per internet check
-  // as the ready state advances from:
-  //
-  //    1 (connection loading)
-  //    2 (response headers received)
-  //    3 (some data received)
-  //    4 (request complete)
-  //
-  // Typically I only see states 1, 2, and 4.
+  function getOnlineStatus() {
+    let status = (typeof _isOnline === 'boolean') ? _isOnline : 'unknown'
+    return status
+  }
 
-  function handleResponse(e) {
-    let doneState = 4 // All expected data received over the connection.
-    if (xhr.readyState === doneState) {
-      let httpRqstSucceeded = 200
-      let httpRqstRedirected = 300
-      if (xhr.status >= httpRqstSucceeded && xhr.status < httpRqstRedirected) {
-        callback(true)  // :-)
-      } else {
-        // Encountered a server-related issue.  We alias this to
-        // offline status but it could belie an issue with the request.
-        callback(false) // :-(  no internet
+  function checkInternet(
+            callback = _setOnlineStatus,
+            checkUrl = "",
+            runAsynchronously = false) {
+
+    let avoidCache = Math.round(Math.random() * 10000)
+    let dfltUrl = `https://i.imgur.com/7ofBNix.png?rand=${avoidCache}`  // smiley image
+    let rqstUrl = (checkUrl) ? checkUrl : dfltUrl
+
+    let xhr = new XMLHttpRequest()
+
+    let checkFileOnly = 'HEAD'
+    let httpMethod = checkFileOnly
+    let useCapture = false
+
+    if (typeof callback === 'function') {
+      xhr.addEventListener("readystatechange", handleResponse, useCapture)
+      if (runAsynchronously) {
+        xhr.timeout = 5000  // Cancel request if nothing back after 5 seconds.
+      }
+
+      // TODO: Fix It!
+      //
+      // My synchronous xhr.open is raising eyebrows (especially on firefox).
+      // Synchronous XMLHttpRequest on the main thread is deprecated because of
+      // its detrimental effects to the end user’s experience.
+      // For more help http://xhr.spec.whatwg.org/
+
+      xhr.open(httpMethod, rqstUrl, runAsynchronously)
+      try {
+        xhr.send()
+      } catch(err) {
+
+        // Typically we get here on network-related problems:
+        //  * wifi down
+        //  * ethernet cable unplugged
+
+        callback(false)
+      }
+    } else {
+      console.log(
+        '[Info] ManageNetworkConnection.checkInternet() was not passed a valid callback.',
+        'Ignoring request.'
+      )
+    }
+
+    // This callback actually is invoked several times per internet check
+    // as the ready state advances from:
+    //
+    //    1 (connection loading)
+    //    2 (response headers received)
+    //    3 (some data received)
+    //    4 (request complete)
+    //
+    // Typically I only see states 1, 2, and 4.
+
+    function handleResponse(e) {
+      let doneState = 4 // All expected data received over the connection.
+      if (xhr.readyState === doneState) {
+        let httpRqstSucceeded = 200
+        let httpRqstRedirected = 300
+        if (xhr.status >= httpRqstSucceeded && xhr.status < httpRqstRedirected) {
+          callback(true)  // :-]
+        } else {
+          // Encountered a server-related issue.  We alias this to
+          // offline status but it could belie an issue with the request.
+          callback(false) // :-/  no internet
+        }
       }
     }
   }
-}
 
-Controller.prototype.setOnlineStatus = function(status) {
-  if (typeof status === 'boolean') {
-    this.isOnline = status
-  } else {
-    this.isOnline = 'unknown'
+  function createInstance() {
+    return {
+      getOnlineStatus: getOnlineStatus,
+      checkInternet: checkInternet
+    }
   }
-}
 
-Controller.prototype.getOnlineStatus = function() {
-  let status = (typeof this.isOnline === 'boolean') ? this.isOnline : 'unknown'
-  return status
-}
-
+  return {
+    getSingleton: function() {
+      if (!_singleton) {
+        _singleton = createInstance()
+      }
+      return _singleton
+    }
+  }
+})()
