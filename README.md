@@ -113,7 +113,7 @@ Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates wi
 
 ![alt](docs/img/fist-pump.png)
 
-Later, he approaches the stage and holds up his Bic lighter high in appreciation.
+Later, he approaches the stage and holds his Bic lighter up high in appreciation.
 
 I'm not sure what the band thinks of all this singular devotion. I'm guessing a rush of tipsy cougars would be more their speed, but the point is, this guy has found his tribe and feels he belongs. And isn't that the bottom line?
 
