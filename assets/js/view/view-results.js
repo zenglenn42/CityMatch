@@ -34,7 +34,6 @@ View.prototype.createResultsBody = function() {
   bodyDiv.appendChild(footer)
 
   // Update presentation of results based upon data-view in model.
-  // TODO: We really should be persisting this state between sessions.
   this.setActiveDataView(this.getActiveDataView())
 
   this.addMenuDrawerEventListeners()
@@ -573,7 +572,7 @@ View.prototype.getMapViewLinkHtml = function(offline, isActive = "") {
   }
 
   let html = `
-        <a id="${linkId}" href="#map-button" class="mdl-tabs__tab view-link" ${isActive}>
+        <a id="${linkId}" href="#map-button" class="mdl-tabs__tab view-link ${isActive}">
           <div ${disableAttr} id="map-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
             <i class="material-icons view-icons">map</i>
           </div>
@@ -621,7 +620,12 @@ View.prototype.createResultsFooter = function() {
   // List view is kinda lame at the moment so I'm replacing it with table view.
   // I'd leave it in if spacing for an odd number of bottom-appbar icons was more
   // pleasing and resilient.
-  // let listLinkHtml = this.getViewLinkHtml({id: "list-view", href: "#list-button", buttonId: "list-button", icon: "list", isActive: ""})
+  //
+  // let listLinkHtml = this.getViewLinkHtml({id: "list-view",
+  //                                          href: "#list-button",
+  //                                          buttonId: "list-button",
+  //                                          icon: "list",
+  //                                          isActive: ""})
 
   let f = document.createElement("footer")
   f.classList.add("mdl-mini-foote")
@@ -642,7 +646,7 @@ View.prototype.createResultsFooter = function() {
 
 View.prototype.findCurrentDataView = function() {
   // TODO: reconcile with ModelResults enumerated types.
-  //       This array really should be pulled from the view mode.
+  //       This array really should be pulled from the view model.
   let views = ["photo-view", "list-view", "table-view", "chart-view", "map-view"]
   for (view of views) {
     if (this.isActiveDataView(view)) return view
@@ -655,8 +659,6 @@ View.prototype.isActiveDataView = function(viewId) {
 }
 
 View.prototype.setActiveDataView = function(nextViewId) {
-  let clickedView = this.getActiveDataView()
-
   let currentViewId = this.findCurrentDataView()
   if (currentViewId != nextViewId) {
     let av = document.getElementById(currentViewId)
