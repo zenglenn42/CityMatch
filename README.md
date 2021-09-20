@@ -78,7 +78,7 @@ Basic city ranking and multi-view results work:
   - [Harden & Refactor](#harden-refactor)
     - [Unwelcome Recursion](#unwelcome-recursion)
     - [T9n Refactor](#t9n-refactor)
-    - [I ♥️  git bisect](#i-heart-git-bisect)
+    - [I heart git bisect](#i-heart-git-bisect) ♥️ 
   - [Table View](#table-view)
     - [Your table is ready](#your-table-is-ready)
     - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
