@@ -1505,9 +1505,10 @@ And bingo, in about 7 steps, git helps me wade through 73 commits to find the cu
          }
 ```
 
-Ah, this is a short & sweet commit, thankfully.  Backing it out should not be an issue.  Looks like I'm just white-listing chart view to use the custom scroll handler which makes the header disappear.  We won't suffer too much functionally if I revert it.
+Ah, this is a short & sweet commit, thankfully.  Backing it out should not be an issue.  Looks like I'm just white-listing chart view to use the custom scroll handler which makes the header disappear.  We won't suffer too much functionally if I revert it.  (But first I need to get out of bisect mode by resetting to the master branch.)
 
 ```
+% git bisect reset
 % git revert da02cc6dff4
 ```
 
