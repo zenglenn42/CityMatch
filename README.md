@@ -78,7 +78,7 @@ Basic city ranking and multi-view results work:
   - [Harden & Refactor](#harden-refactor)
     - [Unwelcome Recursion](#unwelcome-recursion)
     - [T9n Refactor](#t9n-refactor)
-    - [I ♥️  git bisect](#i-♥️ -git-bisect)
+    - [I ♥️  git bisect](#i-heart-git-bisect)
   - [Table View](#table-view)
     - [Your table is ready](#your-table-is-ready)
     - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
@@ -1379,7 +1379,7 @@ In a scaled-up effort, it might make sense to split out each translated catalog 
 
 But the app is relatively small and it's just me at the helm so I can't really justify the effort to split that out just now.  Really wish JS had enumerated types, though.
 
-### [I ♥️  git bisect](#contents)
+### [I heart git bisect](#contents) ♥️ 
 
 No good deed goes unpunished.
 
