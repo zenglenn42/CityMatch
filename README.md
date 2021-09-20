@@ -1402,7 +1402,7 @@ Maybe it would be more efficient if I ...
 
 This is a great opportunity to bust out my friend, ```git bisect```.
 
-Basically you find that last known good commit with the featuring working as designed.
+Basically you find that last known good commit with the feature working as designed.
 Then you invoke ```git bisect``` iteratively to checkout the tree at intermediary commits, testing for the regression at each checkout, until you zero-in on the precise commit that's causing the regression.
 
 My first step is finding the commit that _adds_ the gray-out feature.
@@ -1429,8 +1429,6 @@ and quickly verify the feature works as designed, even when chart-view is select
 This consitutes my last known ```good``` commit.
 
 I revert back to master and start the bisecting-checkout process:
-
-Here's what my ```git bisect`` transcript looks like:
 
 ```
 % git checkout master
@@ -1517,7 +1515,7 @@ Now let's test again ... and
 
 ![alt](docs/img/tooltip-fixed.png)
 
-***bam***! :-) Regression fixed.  To be truly awesome, I'd delve in and figure out _why_ that innocent commit caused the grief.  But I'm feeling just semi-awesome today and know where to pick up the chase when the spirit moves.
+***bam***! Regression fixed.  To be truly awesome, I'd delve in and figure out _why_ that innocent commit causes the grief.  But I'm feeling just semi-awesome today and know where to pick up the chase when the spirit moves.  I'll settle for this win for now since I have some interesting strategy-pattern work in mind.
 
 
 ## [Table View](#contents)
