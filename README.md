@@ -78,6 +78,7 @@ Basic city ranking and multi-view results work:
   - [Harden & Refactor](#harden-refactor)
     - [Unwelcome Recursion](#unwelcome-recursion)
     - [T9n Refactor](#t9n-refactor)
+    - [I ♥️  git bisect](#i-git-bisect)
   - [Table View](#table-view)
     - [Your table is ready](#your-table-is-ready)
     - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
@@ -1377,6 +1378,145 @@ The [merge](https://github.com/zenglenn42/CityMatch/blob/724a502ad2b7fec4e061732
 In a scaled-up effort, it might make sense to split out each translated catalog into its own file so new languages could be added without contention for the single file currently holding all catalogs.  Plus namespacing could be leveraged to prevent collision of symbolic names for strings.  
 
 But the app is relatively small and it's just me at the helm so I can't really justify the effort to split that out just now.  Really wish JS had enumerated types, though.
+
+### [I ♥️  git bisect](#contents)
+
+No good deed goes unpunished.
+
+Remember that cool little hardening feature wherein I gray-out the map-view button when the internet is unavailable ... and a considerate, explanatory tooltip pops up when you hover over the disabled button?
+
+![alt](docs/img/tooltip-works)
+
+Well, at some point, I notice a regression.  It doesn't pop-up if chart-view happens to be selected!
+
+![alt](docs/img/tooltip-broken)
+
+I jump into the debugger and pull up layer-view in Safari and notice that the MDL *.is-active class for the ```<div>``` never gets asserted for the tooltip on hover.  I slog around a bit, placing breakpoints in event handlers, but this really is 3rd party code which seems to be behaving poorly.  
+
+Maybe it would be more efficient if I ...
+
+1. Determine if this _ever_ worked (for the chart-view case).
+2. If it ***did*** work earlier, determine which commit regressed things.
+
+This is a great opportunity to bust out my friend, ```git bisect```.
+
+Basically you find that last known good commit with the featuring working as designed.
+Then you invoke ```git bisect``` iteratively to checkout the tree at intermediary commits, testing for the regression at each checkout, until you zero-in on the precise commit that's causing the regression.
+
+My first step is finding the commit that _adds_ the gray-out feature.
+A little ```git log``` tells me it's:
+
+```
+commit c9e985c637bb2a088ec85805315d692ef817c447
+Date:   Wed Aug 11 14:59:39 2021 -0500
+
+    make results page more resilient to loss of internet
+
+    Gray-out the map view if the internet is down when the application loads
+    (especially when reloading from browser cache).
+```
+
+I create a branch off this commit boundary ...
+
+```
+% git branch does-feature-work c9e985c63
+% git checkout does-feature-work
+```
+and quickly verify the feature works as designed, even when chart-view is selected.  
+
+This consitutes my last known ```good``` commit.
+
+I revert back to master and start the bisecting-checkout process:
+
+Here's what my ```git bisect`` transcript looks like:
+
+```
+% git checkout master
+
+% git bisect start HEAD c9e985c63
+Bisecting: 73 revisions left to test after this (roughly 6 steps)
+[dd096f01ee047985f2ab1199c1f74d6d12474ec6] blog about parasitic recusion bug
+
+% git bisect good
+Bisecting: 36 revisions left to test after this (roughly 5 steps)
+[cea5b63488e9eb9875c59c4bb58093744dd3c87d] blog about react native a bit
+
+% git bisect bad
+Bisecting: 18 revisions left to test after this (roughly 4 steps)
+[d0e8195015b31b9c2bd79c520c6cab6bb69867bc] don't squash vertical dimension on chart-view in landscape mode; scroll instead
+
+% git bisect good
+Bisecting: 9 revisions left to test after this (roughly 3 steps)
+[1efbd26fc7ec643f84b1aff6eae8a09bb7aa1a87] fig blog post formatting on table view
+
+% git bisect bad
+Bisecting: 4 revisions left to test after this (roughly 2 steps)
+[e5d15fe1b4b0225fba4b79ede7f30f5fcafa5a68] re-add fix for nixing horiz sb on lang dropdown menu
+
+% git bisect bad
+Bisecting: 1 revision left to test after this (roughly 1 step)
+[9d1fb31082093a510d1c047aa7277e7356760b43] fix compositing regression in dropdown menu
+
+% git bisect bad
+Bisecting: 0 revisions left to test after this (roughly 0 steps)
+[da02cc6dff4a7142ac01728ce22aa424e8315cb4] nix the headers on chart view; use floating menu instead
+
+% git bisect bad
+da02cc6dff4a7142ac01728ce22aa424e8315cb4 is the first bad commit
+commit da02cc6dff4a7142ac01728ce22aa424e8315cb4
+Author: Glenn Streiff <gsnospampls@pobox.com>
+Date:   Mon Aug 30 11:43:17 2021 -0500
+
+    nix the headers on chart view; use floating menu instead
+
+    It's terribly annoying to look at a graph (especially on mobile)
+    when it is scrunched between a semi-useful bottom appbar and a
+    terribly-unuseful header.
+
+    So nix the header entirely.
+
+ assets/js/controller/controller-results.js | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+```
+
+And bingo, in about 7 steps, git helps me wade through 73 commits to find the culprit:
+
+```commit da02cc6d   nix the headers on chart view; use floating menu instead```
+
+***What*** was I doing in that commit?
+
+```
+% git log -p da02cc6df
+
+@@ -148,12 +148,12 @@ Controller.prototype.addScrollEventListener = function() {
+         switch (targetView) {
+           case "photo": // Whitelist these views to use our custom scroll handler.
+           case "table": //
++          case "chart": //
+               break     // Proceed to custom scroll handling
+
+-          case "chart": // Blacklist these views from using our custom scroll handler.
+-          case "map":   // These views are not playing nicely on mobile, especially map-view
++          case "map":   // Blacklist these views from using our custom scroll handler.
++          default:      // These views are not playing nicely on mobile, especially map-view
+                         // on Android.  Need better device emulation in dev env. :-)
+-          default:
+               return    // Bail out, no custom scroll handling.
+         }
+```
+
+Ah, this is a short & sweet commit, thankfully.  Backing it out should not be an issue.  Looks like I'm just white-listing chart view to use the custom scroll handler which makes the header disappear.  We won't suffer too much functionally if I revert it.
+
+```
+% git revert da02cc6dff4
+```
+
+Now let's test again ... and 
+
+![alt](docs/img/tooltip-fixed)
+
+***bam***! :-) Regression fixed.  To be truly awesome, I'd delve in and figure out _why_ that innocent commit caused the grief.  But I'm feeling just semi-awesome today and know where to pick up the chase when the spirit moves.
+
 
 ## [Table View](#contents)
 
