@@ -78,7 +78,7 @@ Basic city ranking and multi-view results work:
   - [Harden & Refactor](#harden-refactor)
     - [Unwelcome Recursion](#unwelcome-recursion)
     - [T9n Refactor](#t9n-refactor)
-    - [I ♥️  git bisect](#i-git-bisect)
+    - [I ♥️  git bisect](#i-♥️ -git-bisect)
   - [Table View](#table-view)
     - [Your table is ready](#your-table-is-ready)
     - [But the table is small and by the kitchen](#but-the-table-is-small-and-by-the-kitchen)
@@ -1385,11 +1385,11 @@ No good deed goes unpunished.
 
 Remember that cool little hardening feature wherein I gray-out the map-view button when the internet is unavailable ... and a considerate, explanatory tooltip pops up when you hover over the disabled button?
 
-![alt](docs/img/tooltip-works)
+![alt](docs/img/tooltip-works.png)
 
 Well, at some point, I notice a regression.  It doesn't pop-up if chart-view happens to be selected!
 
-![alt](docs/img/tooltip-broken)
+![alt](docs/img/tooltip-broken.png)
 
 I jump into the debugger and pull up layer-view in Safari and notice that the MDL *.is-active class for the ```<div>``` never gets asserted for the tooltip on hover.  I slog around a bit, placing breakpoints in event handlers, but this really is 3rd party code which seems to be behaving poorly.  
 
@@ -1513,7 +1513,7 @@ Ah, this is a short & sweet commit, thankfully.  Backing it out should not be an
 
 Now let's test again ... and 
 
-![alt](docs/img/tooltip-fixed)
+![alt](docs/img/tooltip-fixed.png)
 
 ***bam***! :-) Regression fixed.  To be truly awesome, I'd delve in and figure out _why_ that innocent commit caused the grief.  But I'm feeling just semi-awesome today and know where to pick up the chase when the spirit moves.
 
