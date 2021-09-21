@@ -554,22 +554,73 @@ View.prototype.createResultsNoPrioritiesCard = function(params) {
   return p
 }
 
+View.prototype.disableViewLink = function(linkId) {
+  // We only support enabling/disabling map-view for the moment.
+  if (linkId !== "map-view") return
+
+  let linkEl = document.getElementById(linkId)
+  if (linkEl) {
+    let baseName = linkId.split("-")[0]
+    let buttonId = `${baseName}-button`
+    let linkButtonEl = document.getElementById(buttonId)
+
+    if (linkButtonEl) {
+      let tooltipId = `${baseName}-tooltip`
+      let tooltipEl = document.getElementById(tooltipId)
+      if (tooltipEl) {
+        tooltipEl.style.display = "block" // Enable visibility of tooltip text.
+        let tooltipText = this.t('NoMapView')   // TODO: Generalize naming.
+        tooltipEl.innerHTML = tooltipText
+        linkButtonEl.setAttribute("disabled", "disabled")
+        linkEl.setAttribute("id", "map-view-disabled")
+      }
+    }
+  }
+}
+
+View.prototype.enableViewLink = function(linkId) {
+  // We only support enabling/disabling map-view for the moment.
+  if (linkId !== "map-view-disabled") return
+
+  let linkEl = document.getElementById(linkId)
+  if (linkEl) {
+    let baseName = linkId.split("-")[0]
+    let buttonId = `${baseName}-button`
+    let linkButtonEl = document.getElementById(buttonId)
+
+    if (linkButtonEl) {
+      let tooltipId = `${baseName}-tooltip`
+      let tooltipEl = document.getElementById(tooltipId)
+      if (tooltipEl) {
+        tooltipEl.style.display = "none" // Disable visibility of tooltip text.
+                                         // which tells them to wait for inet availability.
+        let tooltipText = ""
+        tooltipEl.innerHTML = tooltipText
+        linkButtonEl.removeAttribute("disabled")
+        linkEl.setAttribute("id", "map-view")
+      }
+    }
+  }
+}
+
 View.prototype.getMapViewLinkHtml = function(offline, isActive = "") {
-  let mapTooltipHtml = ""
+
   let disableAttr = ""
   let linkId = "map-view"
+  let mapTooltip = ""
+  let tooltipDisplayStyle = "none"
 
   if (offline) {
     linkId += "-disabled"
     disableAttr = "disabled"
     mapTooltip = this.t('NoMapView')
-    mapTooltipHtml = `
-        <div style="text-transform: none;"
-              class="mdl-tooltip mdl-tooltip--medium mdl-tooltip--top" 
-              data-mdl-for="map-button">
-          ${mapTooltip}
-        </div>`
+    tooltipDisplayStyle = "block"
   }
+
+  let mapTooltipHtml = `<div id="map-tooltip"
+              style="text-transform: none;display: ${tooltipDisplayStyle};"
+              class="mdl-tooltip mdl-tooltip--medium mdl-tooltip--top"
+              data-mdl-for="map-button">${mapTooltip}</div>`
 
   let html = `
         <a id="${linkId}" href="#map-button" class="mdl-tabs__tab view-link ${isActive}">

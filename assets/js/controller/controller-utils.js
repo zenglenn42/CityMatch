@@ -128,7 +128,26 @@ Controller.prototype.ManageEventHandlers = (function() {
             }
           }, useCapture) /*{capture: useCapture, passive: false}*/
         }
+      },
+
+      addWindowEventListener: function(evt, desc, handler, useCapture = false) {
+
+        // Track requests for adding delegated event handlers to
+        // dynamically-created DOM elements so we can avoid adding duplicates.
+        //
+        // Otherwise, the view code as written may register duplicate handlers
+        // and we'll see performance steadily degrade as the DOM runs the same
+        // event through all of them. :-|
+
+        let sel = `window-${desc}`
+        let alreadyAdded = this.isAlreadyAdded(evt, sel)
+
+        if (!alreadyAdded) {
+          this.track(evt, sel, handler)
+          window.addEventListener(evt, handler, useCapture)
+        }
       }
+
     }
   }
 
@@ -166,7 +185,7 @@ Controller.prototype.ManageNetworkConnection = (function() {
   let _singleton
   let _isOnline = 'unknown'
 
-  function _setOnlineStatus(status) {
+  function setOnlineStatus(status) {
     if (typeof status === 'boolean') {
       _isOnline = status
     } else {
@@ -180,7 +199,7 @@ Controller.prototype.ManageNetworkConnection = (function() {
   }
 
   function checkInternet(
-            callback = _setOnlineStatus,
+            callback = setOnlineStatus,
             checkUrl = "",
             runAsynchronously = false) {
 
@@ -254,6 +273,7 @@ Controller.prototype.ManageNetworkConnection = (function() {
   function createInstance() {
     return {
       getOnlineStatus: getOnlineStatus,
+      setOnlineStatus: setOnlineStatus,
       checkInternet: checkInternet
     }
   }

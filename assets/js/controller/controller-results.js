@@ -227,6 +227,25 @@ Controller.prototype.addResultsPageEventListeners = function() {
       this.getViewButtonEventListener(),
       useCapture)
 
+  this.delegatedHandlers.addWindowEventListener(
+      "online",
+      "map-view",
+      (e) => {
+        //console.log("online")
+        this.view.enableViewLink("map-view-disabled")
+        this.networkConnection.setOnlineStatus(true)
+      },
+      false)
+
+  this.delegatedHandlers.addWindowEventListener(
+      "offline",
+      "map-view",
+      (e) => {
+        //console.log("offline")
+        this.view.disableViewLink("map-view")
+        this.networkConnection.setOnlineStatus(false)
+      },
+      false)
 }
 
 Controller.prototype.getViewButtonEventListener = function() {
